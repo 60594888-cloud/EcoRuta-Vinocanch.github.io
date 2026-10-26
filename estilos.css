@@ -1787,3 +1787,300 @@ a {
         padding: 30px 22px;
     }
 }
+
+
+/* =========================================
+   CORRECCIÓN GENERAL DE ECORUTA VINOCANCHÓN
+========================================= */
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    font-family: 'DM Sans', Arial, sans-serif;
+    background: #f4f8f5;
+    color: #20352a;
+    line-height: 1.6;
+}
+
+/* ENCABEZADO */
+
+body > header:not(.topbar) {
+    padding: 25px 5%;
+    background: #ffffff;
+    border-bottom: 1px solid #dce8df;
+}
+
+body > header h1 {
+    margin: 0 0 5px;
+    color: #145c38;
+    font-size: 32px;
+}
+
+body > header p {
+    margin: 0;
+    color: #68776d;
+}
+
+/* MENÚ DE NAVEGACIÓN */
+
+body > nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 15px 20px;
+    background: #145c38;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+}
+
+body > nav a {
+    display: inline-block;
+    padding: 10px 16px;
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 8px;
+    transition: background 0.2s ease;
+}
+
+body > nav a:hover,
+body > nav a:focus {
+    background: #237a4a;
+}
+
+/* CONTENIDO PRINCIPAL */
+
+.contenedor {
+    width: min(1200px, 92%);
+    margin: 30px auto;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+    align-items: start;
+}
+
+/* PANELES */
+
+.panel {
+    min-width: 0;
+    padding: 25px;
+    background: #ffffff;
+    border: 1px solid #dce8df;
+    border-radius: 18px;
+    box-shadow: 0 8px 25px rgba(23, 75, 44, 0.06);
+}
+
+.panel h2 {
+    margin: 0 0 8px;
+    color: #145c38;
+    font-size: 23px;
+}
+
+.panel p {
+    margin: 0 0 12px;
+    color: #68776d;
+}
+
+/* CAMPOS Y BOTONES */
+
+form label,
+.panel label {
+    display: block;
+    margin: 14px 0 6px;
+    font-weight: 600;
+}
+
+input,
+select,
+textarea {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 10px;
+    font: inherit;
+    color: #20352a;
+    background: #ffffff;
+    border: 1px solid #ccd9cf;
+    border-radius: 9px;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    outline: 2px solid #91c9a4;
+    border-color: #237a4a;
+}
+
+button,
+.btn {
+    display: inline-block;
+    padding: 11px 18px;
+    font: inherit;
+    font-weight: 600;
+    color: #ffffff;
+    background: #187346;
+    border: none;
+    border-radius: 9px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+button:hover,
+.btn:hover {
+    background: #105632;
+}
+
+/* SECTORES DEL MAPA */
+
+.sectores {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.sectores > * {
+    min-width: 0;
+}
+
+.leyenda {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 12px 0;
+    font-size: 14px;
+}
+
+/* REPORTES */
+
+#lista-reportes {
+    margin-top: 18px;
+}
+
+#lista-reportes > * {
+    margin-bottom: 12px;
+}
+
+/* PIE DE PÁGINA */
+
+body > footer:not(.login-footer) {
+    padding: 20px;
+    text-align: center;
+    color: #68776d;
+}
+
+/* =========================================
+   INICIAR SESIÓN CENTRADO
+========================================= */
+
+body.login-page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: #f1f7f2;
+}
+
+.login-page .topbar {
+    width: 100%;
+    flex-shrink: 0;
+}
+
+.login-page .login-layout {
+    width: min(450px, 92%);
+    min-height: 0;
+    margin: auto;
+    padding: 30px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: transparent;
+    border-radius: 0;
+    box-shadow: none;
+    overflow: visible;
+}
+
+.login-page .login-welcome {
+    display: none;
+}
+
+.login-page .login-card {
+    width: 100%;
+    padding: 35px;
+    background: #ffffff;
+    border: 1px solid #dce8df;
+    border-radius: 20px;
+    box-shadow: 0 12px 35px rgba(23, 75, 44, 0.10);
+}
+
+.login-page .login-card h2,
+.login-page .login-subtitle {
+    text-align: center;
+}
+
+.login-page .login-logo {
+    text-align: center;
+    margin: 0 auto 15px;
+}
+
+.login-page .login-submit,
+.login-page .btn-register {
+    width: 100%;
+    margin-top: 10px;
+}
+
+.login-page .login-footer {
+    width: 100%;
+    margin-top: auto;
+    text-align: center;
+}
+
+/* DISEÑO PARA CELULARES */
+
+@media (max-width: 700px) {
+    body > header:not(.topbar) {
+        padding: 20px;
+    }
+
+    body > header h1 {
+        font-size: 25px;
+    }
+
+    body > nav {
+        gap: 5px;
+        padding: 12px 8px;
+    }
+
+    body > nav a {
+        padding: 8px 10px;
+        font-size: 13px;
+    }
+
+    .contenedor {
+        width: 92%;
+        grid-template-columns: 1fr;
+        margin: 20px auto;
+        gap: 18px;
+    }
+
+    .panel {
+        padding: 18px;
+    }
+
+    .sectores {
+        grid-template-columns: 1fr;
+    }
+
+    .login-page .login-card {
+        padding: 25px 20px;
+    }
+}
