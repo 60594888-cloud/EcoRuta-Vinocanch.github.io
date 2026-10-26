@@ -5,8 +5,8 @@ const SUPABASE_URL = "https://lltmqglylffjjtpfgwdz.supabase.co";
 const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_e4f5RulYH-ict09gqap6NQ_2ABIYWED";
 
 if (
-    !SUPABASE_URL.startsWith("https://") ||
-    SUPABASE_PUBLISHABLE_KEY.startsWith("PEGA_AQUI")
+    !SUPABASE_URL.startsWith("https://lltmqglylffjjtpfgwdz.supabase.co") ||
+    SUPABASE_PUBLISHABLE_KEY.startsWith("sb_publishable_e4f5RulYH-ict09gqap6NQ_2ABIYWED")
 ) {
     console.warn("Configura la URL y la clave publicable de Supabase.");
 }
@@ -15,8 +15,8 @@ window.supabaseCliente = null;
 
 if (
     window.supabase &&
-    SUPABASE_URL.startsWith("https://") &&
-    !SUPABASE_PUBLISHABLE_KEY.startsWith("PEGA_AQUI")
+    SUPABASE_URL.startsWith("https://lltmqglylffjjtpfgwdz.supabase.co") &&
+    !SUPABASE_PUBLISHABLE_KEY.startsWith("sb_publishable_e4f5RulYH-ict09gqap6NQ_2ABIYWED")
 ) {
     window.supabaseCliente = window.supabase.createClient(
         SUPABASE_URL,
