@@ -1720,3 +1720,70 @@ a {
         padding: 30px 23px;
     }
 }
+
+.login-page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: #f2f7f2;
+}
+
+.login-page .topbar {
+    width: 100%;
+    flex-shrink: 0;
+}
+
+.login-page .login-layout {
+    width: min(450px, 92%);
+    min-height: auto;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: transparent;
+    border-radius: 0;
+    box-shadow: none;
+    overflow: visible;
+}
+
+.login-page .login-welcome {
+    display: none;
+}
+
+.login-page .login-card {
+    width: 100%;
+    padding: 40px 35px;
+    background: #ffffff;
+    border: 1px solid #e2ebe4;
+    border-radius: 22px;
+    box-shadow: 0 15px 45px rgba(20, 70, 43, 0.12);
+}
+
+.login-page .login-logo {
+    margin: 0 auto 20px;
+}
+
+.login-page .login-card h2 {
+    text-align: center;
+}
+
+.login-page .login-subtitle {
+    text-align: center;
+}
+
+.login-page .login-footer {
+    width: 100%;
+    flex-shrink: 0;
+}
+
+/* Adaptación para celulares */
+@media (max-width: 600px) {
+    .login-page .login-layout {
+        width: 92%;
+        margin: 30px auto;
+    }
+
+    .login-page .login-card {
+        padding: 30px 22px;
+    }
+}
