@@ -1,1 +1,57 @@
-<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#075c46"><title>Mapa de calor | EcoRuta Vinocanchón</title><link rel="stylesheet" href="estilos.css"></head><body data-page="mapa"><div class="layout"><aside class="sidebar" id="sidebar"><a class="brand" href="index.html"><span class="brand-icon">🌿</span><span><strong>EcoRuta</strong><small>VINOCANCHÓN</small></span></a><div class="nav-label">TU MERCADO · TU COMUNIDAD</div><nav><a href="index.html" class="nav-link ">🏠 <span>Inicio</span></a><a href="mapa.html" class="nav-link selected">🗺️ <span>Mapa de calor</span></a><a href="reportes.html" class="nav-link ">🚮 <span>Reportes</span></a><a href="recompensas.html" class="nav-link ">🏆 <span>EcoPuntos</span></a><a href="admin.html" class="nav-link ">🛠️ <span>Administración</span></a></nav><div class="side-note">💚 <strong>Tu reporte cuenta</strong><p>Una comunidad más limpia empieza contigo.</p></div></aside><div class="workspace"><header class="topbar"><button class="hamburger" id="menuBtn" aria-label="Abrir menú">☰</button><div><small>📍 Cusco, Perú · Plataforma comunitaria</small><h2>Mapa de calor</h2></div><div class="account"><span id="userName">Visitante</span><span id="pointBadge" class="pill">⭐ 0</span><button class="ghost small" id="logoutBtn">Salir</button></div></header><main><div class="page-head"><span class="kicker">MONITOREO AMBIENTAL</span><h1>🗺️ Mapa de calor automático</h1><p>Los colores se calculan a partir de los reportes pendientes y aprobados guardados en la base de datos compartida.</p></div><div class="map-layout"><section class="card"><div class="card-head"><div><h2>📍 Sectores del mercado</h2><p>Vista esquemática · no representa un plano geográfico exacto</p></div><span class="pill" id="mapUpdated">En vivo al actualizar</span></div><div class="heat-grid" id="heatGrid"><div class="empty">Cargando sectores…</div></div><div class="legend"><span><i class="dot red"></i>Alta</span><span><i class="dot amber"></i>Media</span><span><i class="dot green"></i>Baja</span><span><i class="dot gray"></i>Sin alertas</span></div></section><aside class="card"><h2>🚦 Prioridad de limpieza</h2><p class="muted">El mapa suma las alertas activas. Un sector con más reportes o mayor urgencia tendrá más intensidad.</p><div id="heatRanking" class="ranking"></div><div class="callout">💡 ¿Detectaste un punto crítico? Registra un reporte para que el sector aparezca en el mapa.</div><a href="reportes.html" class="primary button full">🚮 Nuevo reporte</a></aside></div></main><footer>🌱 EcoRuta Vinocanchón · Plataforma comunitaria de demostración · Datos compartidos por el servidor</footer></div></div><div id="toast" role="status" class="toast"></div><script src="codigo.js" defer></script></body></html>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoRuta | Mapa de prioridades</title>
+    <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+    <header>
+        <h1>📍 Mapa de prioridades</h1>
+        <p>Identifica los sectores que necesitan limpieza.</p>
+    </header>
+
+    <nav>
+        <a href="index.html">Inicio</a>
+        <a href="mapa.html">Mapa de prioridades</a>
+        <a href="reportes.html">Reportes</a>
+        <a href="recompensas.html">Recompensas</a>
+        <a href="admin.html">Administración</a>
+    </nav>
+
+    <main class="contenedor">
+        <section class="panel">
+            <h2>Sectores del mercado</h2>
+            <p>Los colores representan la cantidad de reportes activos registrados.</p>
+
+            <div class="leyenda">
+                <span>🟢 Prioridad baja</span>
+                <span>🟡 Prioridad media</span>
+                <span>🔴 Prioridad alta</span>
+            </div>
+
+            <div id="mapa-sectores" class="sectores">
+                <p>Cargando información...</p>
+            </div>
+        </section>
+
+        <section class="panel">
+            <h2>Información</h2>
+            <p>
+                Este panel muestra prioridades aproximadas por sector.
+                No representa ubicaciones GPS exactas.
+            </p>
+            <button onclick="cargarMapa()">Actualizar información</button>
+        </section>
+    </main>
+
+    <footer>
+        <p>EcoRuta Vinocanchón © 2026</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="configuracion.js"></script>
+    <script src="codigo.js"></script>
+</body>
+</html>
