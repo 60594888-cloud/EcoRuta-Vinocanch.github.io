@@ -18,61 +18,135 @@ function mostrarMensaje(elemento, mensaje) {
     }
 }
 
-// REGISTRO DE USUARIO
-const formularioRegistro = document.getElementById("form-registro");
+// INDICADORES DE LA PORTADA
+async function cargarEstadisticas() {
+    const totalEl = document.getElementById("stat-reportes");
+    const resueltosEl = document.getElementById("stat-resueltos");
+    const puntosEl = document.getElementById("stat-puntos");
+    if (!totalEl && !resueltosEl && !puntosEl) return;
 
-if (formularioRegistro) {
-    formularioRegistro.addEventListener("submit", async (evento) => {
-        evento.preventDefault();
+    if (!db()) {
+        if (totalEl) totalEl.textContent = "—";
+        if (resueltosEl) resueltosEl.textContent = "—";
+        if (puntosEl) puntosEl.textContent = "—";
+        return;
+    }
 
-        if (!db()) {
-            mostrarMensaje("mensaje", "Primero configura Supabase.");
-            return;
+    try {
+        const [total, resueltos] = await Promise.all([
+            db().from("reportes").select("id", { count: "exact", head: true }),
+            db().from("reportes").select("id", { count: "exact", head: true }).eq("estado", "resuelto")
+        ]);
+        if (totalEl) totalEl.textContent = total.error ? "—" : (total.count ?? 0).toLocaleString("es-PE");
+        if (resueltosEl) resueltosEl.textContent = resueltos.error ? "—" : (resueltos.count ?? 0).toLocaleString("es-PE");
+
+        if (puntosEl) {
+            const usuario = await obtenerUsuario();
+            if (!usuario) {
+                puntosEl.textContent = "—";
+            } else {
+                const { data, error } = await db().from("perfiles").select("puntos").eq("id", usuario.id).maybeSingle();
+                puntosEl.textContent = error ? "—" : String(data?.puntos ?? 0);
+            }
         }
-
-        const email = document.getElementById("correo-registro").value;
-        const password = document.getElementById("contrasena-registro").value;
-
-        const { error } = await db().auth.signUp({
-            email,
-            password
-        });
-
-        mostrarMensaje(
-            "mensaje",
-            error
-                ? error.message
-                : "Registro enviado. Si se solicita, confirma tu correo electrónico."
-        );
-    });
+    } catch (error) {
+        console.warn("No se pudieron cargar los indicadores de EcoRuta.", error);
+        if (totalEl) totalEl.textContent = "—";
+        if (resueltosEl) resueltosEl.textContent = "—";
+        if (puntosEl) puntosEl.textContent = "—";
+    }
 }
 
-// INICIAR SESIÓN
-const formularioLogin = document.getElementById("form-login");
+// INICIAR SESIÓN Y REGISTRO (el mismo formulario admite ambos modos)
+const formularioLogin = document.getElementById("login-form") ||
+    document.getElementById("form-login");
+const botonRegistro = document.getElementById("register-button");
+let modoRegistro = false;
+
+function configurarModoAcceso(registro) {
+    modoRegistro = registro;
+    const titulo = document.getElementById("login-title");
+    const subtitulo = document.getElementById("login-subtitle");
+    const botonEnviar = document.getElementById("login-button");
+    const campoNombre = document.getElementById("name-field");
+    const nombre = document.getElementById("name");
+    const textoRegistro = document.getElementById("register-prompt");
+    const mensaje = document.getElementById("login-message");
+
+    if (titulo) titulo.textContent = registro ? "Crea tu cuenta" : "¡Qué bueno verte!";
+    if (subtitulo) subtitulo.textContent = registro
+        ? "Únete a la comunidad que cuida Vinocanchón."
+        : "Ingresa tus datos para continuar con tu comunidad.";
+    if (botonEnviar) botonEnviar.innerHTML = registro
+        ? 'Crear cuenta <span aria-hidden="true">→</span>'
+        : 'Iniciar sesión <span aria-hidden="true">→</span>';
+    if (campoNombre) campoNombre.hidden = !registro;
+    if (nombre) nombre.required = registro;
+    if (textoRegistro) textoRegistro.textContent = registro
+        ? "¿Ya tienes una cuenta?"
+        : "¿Aún no tienes una cuenta?";
+    if (botonRegistro) botonRegistro.textContent = registro
+        ? "Volver a iniciar sesión"
+        : "Crear una cuenta";
+    if (mensaje) mensaje.textContent = "";
+}
+
+if (botonRegistro) {
+    botonRegistro.addEventListener("click", () => configurarModoAcceso(!modoRegistro));
+}
 
 if (formularioLogin) {
     formularioLogin.addEventListener("submit", async (evento) => {
         evento.preventDefault();
+        const mensaje = document.getElementById("login-message");
+        const correoInput = document.getElementById("email") || document.getElementById("correo");
+        const passwordInput = document.getElementById("password") || document.getElementById("contrasena");
+        const email = correoInput?.value.trim() || "";
+        const password = passwordInput?.value || "";
 
         if (!db()) {
-            mostrarMensaje("mensaje", "Primero configura Supabase.");
+            mostrarMensaje("login-message", "El acceso no está conectado. Revisa la configuración de Supabase.");
             return;
         }
 
-        const email = document.getElementById("correo").value;
-        const password = document.getElementById("contrasena").value;
+        const botonEnviar = document.getElementById("login-button");
+        if (botonEnviar) botonEnviar.disabled = true;
+        if (mensaje) mensaje.textContent = modoRegistro ? "Creando tu cuenta..." : "Verificando tus datos...";
 
-        const { error } = await db().auth.signInWithPassword({
-            email,
-            password
-        });
+        try {
+            let resultado;
+            if (modoRegistro) {
+                const nombre = document.getElementById("name")?.value.trim() || "";
+                if (nombre.length < 2) {
+                    mostrarMensaje("login-message", "Escribe tu nombre para crear una cuenta.");
+                    return;
+                }
+                resultado = await db().auth.signUp({
+                    email,
+                    password,
+                    options: { data: { nombre } }
+                });
+            } else {
+                resultado = await db().auth.signInWithPassword({ email, password });
+            }
 
-        if (error) {
-            mostrarMensaje("mensaje", "No se pudo iniciar sesión: " + error.message);
-            return;
+            if (resultado.error) {
+                mostrarMensaje("login-message", (modoRegistro ? "No se pudo crear la cuenta: " : "No se pudo iniciar sesión: ") + resultado.error.message);
+                return;
+            }
+
+            if (modoRegistro && !resultado.data.session) {
+                mostrarMensaje("login-message", "Cuenta creada. Revisa tu correo si se requiere confirmación para ingresar.");
+                return;
+            }
+
+            window.location.href = "index.html";
+        } catch (error) {
+            console.error(error);
+            mostrarMensaje("login-message", "Ocurrió un error de conexión. Inténtalo nuevamente.");
+        } finally {
+            if (botonEnviar) botonEnviar.disabled = false;
         }
-
-        window.location.href = "index.html";
     });
 }
 
@@ -514,8 +588,31 @@ async function actualizarEstadoReporte(id, estado) {
 
 // INICIALIZAR LAS FUNCIONES DE CADA PÁGINA
 document.addEventListener("DOMContentLoaded", () => {
+    cargarEstadisticas();
+
     if (!db()) {
         console.warn("Supabase no está configurado.");
+        const mensajeBase = "Conecta Supabase para consultar los datos en tiempo real.";
+        ["lista-reportes", "mapa-sectores", "lista-recompensas", "mis-canjes", "reportes-admin"].forEach((id) => {
+            const elemento = document.getElementById(id);
+            if (elemento) {
+                elemento.replaceChildren();
+                const nota = document.createElement("div");
+                nota.className = "empty-state";
+                const icono = document.createElement("span");
+                icono.textContent = "🌿";
+                const titulo = document.createElement("b");
+                titulo.textContent = "Datos no conectados";
+                const texto = document.createElement("p");
+                texto.textContent = mensajeBase;
+                nota.append(icono, titulo, texto);
+                elemento.appendChild(nota);
+            }
+        });
+        const estadoAdmin = document.getElementById("estado-admin");
+        if (estadoAdmin) estadoAdmin.textContent = mensajeBase;
+        const mensajeReporte = document.getElementById("mensaje-reporte");
+        if (mensajeReporte) mensajeReporte.textContent = mensajeBase;
         return;
     }
 
@@ -547,4 +644,3 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 });
-
