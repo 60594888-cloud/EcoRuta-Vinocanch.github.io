@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0b4c34">
+
+    <meta name="description"
+          content="Registra y consulta incidencias de residuos en el mercado Vinocanchón.">
+
+    <title>Terranova | Reportes comunitarios</title>
+
+    <!-- Icono de la página -->
+    <link rel="icon" type="image/svg+xml" href="imagenes/favicon.svg">
+
+    <!-- Fuentes de Google -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <!-- Archivo CSS -->
+    <link rel="stylesheet" href="estilos.css">
+</head>
+
+<body data-page="reportes">
+
+    <!-- ===================================== -->
+    <!-- ENCABEZADO Y MENÚ DE NAVEGACIÓN       -->
+    <!-- ===================================== -->
+
+    <header class="topbar">
+
+        <!-- Logo -->
+        <a class="brand" href="index.html">
+
+            <span class="brand-icon" aria-hidden="true">
+                🌿
+            </span>
+
+            <span>
+                <b>Terranova</b>
+                <small>Mercado Vinocanchón</small>
+            </span>
+
+        </a>
+
+        <!-- Botón de menú para celulares -->
+        <button
+            class="menu-toggle"
+            id="menu-toggle"
+            type="button"
+            aria-label="Abrir menú"
+            aria-controls="nav"
+            aria-expanded="false"
+        >
+            ☰
+        </button>
+
+        <!-- Navegación -->
+        <nav class="nav" id="nav" aria-label="Navegación principal">
+
+            <a href="index.html">
+                Inicio
+            </a>
+
+            <a href="mapa.html">
+                Mapa de prioridades
+            </a>
+
+            <a
+                href="reportes.html"
+                class="active"
+                aria-current="page"
+            >
+                Reportes
+            </a>
+
+            <a href="recompensas.html">
+                EcoPuntos
+            </a>
+
+            <a href="admin.html">
+                Administración
+            </a>
+
+            <a class="nav-login" href="login.html">
+                Iniciar sesión
+                <span aria-hidden="true">↗</span>
+            </a>
+
+        </nav>
+
+    </header>
+
+
+    <!-- ===================================== -->
+    <!-- CONTENIDO PRINCIPAL                   -->
+    <!-- ===================================== -->
+
+    <main class="page-main">
+
+        <!-- Título de la página -->
+        <div class="page-heading">
+
+            <div>
+
+                <span class="eyebrow green-text">
+                    TU VOZ AYUDA A MEJORAR EL MERCADO
+                </span>
+
+                <h1>Reportes comunitarios</h1>
+
+                <p>
+                    Cuéntanos qué ocurre y en qué zona.
+                    Cada reporte ayuda a visibilizar las necesidades.
+                </p>
+
+            </div>
+
+            <div class="heading-chip">
+                <span>♻️</span>
+                Participación ciudadana
+            </div>
+
+        </div>
+
+
+        <!-- ===================================== -->
+        <!-- CONTENEDOR DE REPORTES                -->
+        <!-- ===================================== -->
+
+        <div class="report-layout report-layout-modern">
+
+
+            <!-- ================================= -->
+            <!-- FORMULARIO DE REPORTES            -->
+            <!-- ================================= -->
+
+            <section class="panel report-form-panel">
+
+                <div class="panel-title">
+
+                    <div>
+
+                        <h2>Cuéntanos qué sucede</h2>
+
+                        <p>
+                            Completa los campos para registrar
+                            una incidencia.
+                        </p>
+
+                    </div>
+
+                    <span class="panel-emoji">
+                        📝
+                    </span>
+
+                </div>
+
+
+                <!-- Formulario -->
+                <form id="form-reporte">
+
+                    <div class="form-grid">
+
+
+                        <!-- Sector del mercado -->
+                        <div class="field full">
+
+                            <label for="sector">
+                                Sector del mercado <b>*</b>
+                            </label>
+
+                            <select id="sector" required>
+
+                                <option value="">
+                                    Selecciona un sector
+                                </option>
+
+                                <option value="Entrada principal">
+                                    Entrada principal
+                                </option>
+
+                                <option value="Zona de frutas y verduras">
+                                    Zona de frutas y verduras
+                                </option>
+
+                                <option value="Zona de carnes">
+                                    Zona de carnes
+                                </option>
+
+                                <option value="Zona de comidas">
+                                    Zona de comidas
+                                </option>
+
+                                <option value="Zona de residuos">
+                                    Zona de residuos
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <!-- Tipo de residuo -->
+                        <div class="field">
+
+                            <label for="tipo-residuo">
+                                Tipo de residuo <b>*</b>
+                            </label>
+
+                            <select id="tipo-residuo" required>
+
+                                <option value="">
+                                    Selecciona el tipo
+                                </option>
+
+                                <option value="Orgánico">
+                                    Orgánico
+                                </option>
+
+                                <option value="Plástico">
+                                    Plástico
+                                </option>
+
+                                <option value="Papel y cartón">
+                                    Papel y cartón
+                                </option>
+
+                                <option value="Vidrio">
+                                    Vidrio
+                                </option>
+
+                                <option value="Residuos mezclados">
+                                    Residuos mezclados
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <!-- Nivel de urgencia -->
+                        <div class="field">
+
+                            <label for="urgencia">
+                                Nivel de urgencia <b>*</b>
+                            </label>
+
+                            <select id="urgencia" required>
+
+                                <option value="Baja">
+                                    Baja
+                                </option>
+
+                                <option value="Media">
+                                    Media
+                                </option>
+
+                                <option value="Alta">
+                                    Alta
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <!-- Descripción del problema -->
+                        <div class="field full">
+
+                            <label for="descripcion">
+                                Descripción <b>*</b>
+                            </label>
+
+                            <textarea
+                                id="descripcion"
+                                rows="5"
+                                maxlength="500"
+                                required
+                                placeholder="Ejemplo: se acumulan restos de verduras junto al pasillo de entrada..."
+                            ></textarea>
+
+                            <small class="field-help">
+                                Describe el lugar y el tipo de problema
+                                con el mayor detalle posible.
+                            </small>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Botones del formulario -->
+                    <div class="form-actions">
+
+                        <button
+                            type="submit"
+                            class="btn btn-primary"
+                        >
+                            Enviar reporte
+                            <span aria-hidden="true">→</span>
+                        </button>
+
+                        <button
+                            type="reset"
+                            class="btn btn-outline"
+                        >
+                            Limpiar campos
+                        </button>
+
+                    </div>
+
+
+                    <!-- Mensaje de confirmación -->
+                    <p
+                        id="mensaje-reporte"
+                        class="form-message"
+                        role="status"
+                        aria-live="polite"
+                    ></p>
+
+
+                    <!-- Información adicional -->
+                    <p class="fine-print">
+                        Para registrar reportes en la base de datos,
+                        inicia sesión y asegúrate de que la conexión
+                        esté configurada.
+                    </p>
+
+                </form>
+
+            </section>
+
+
+
+            <!-- ================================= -->
+            <!-- LISTA DE REPORTES RECIENTES       -->
+            <!-- ================================= -->
+
+            <section class="panel reports-list-panel">
+
+                <div class="panel-title">
+
+                    <div>
+
+                        <h2>Actividad reciente</h2>
+
+                        <p>
+                            Consulta los reportes registrados
+                            y su estado.
+                        </p>
+
+                    </div>
+
+                    <span class="panel-emoji">
+                        📋
+                    </span>
+
+                </div>
+
+
+                <!-- Filtro de reportes -->
+                <div class="filter-row">
+
+                    <label for="filtro-estado">
+                        Mostrar
+                    </label>
+
+                    <select
+                        id="filtro-estado"
+                        onchange="cargarReportes()"
+                    >
+
+                        <option value="">
+                            Todos los reportes
+                        </option>
+
+                        <option value="pendiente">
+                            Pendientes
+                        </option>
+
+                        <option value="aprobado">
+                            Aprobados
+                        </option>
+
+                        <option value="resuelto">
+                            Resueltos
+                        </option>
+
+                        <option value="rechazado">
+                            Rechazados
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- Contenedor de reportes -->
+                <div
+                    id="lista-reportes"
+                    class="reports-list"
+                    aria-live="polite"
+                >
+
+                    <div class="empty-state">
+
+                        <span>📋</span>
+
+                        <b>
+                            Aquí aparecerán los reportes
+                        </b>
+
+                        <p>
+                            Conecta la base de datos para mostrar
+                            la actividad de la comunidad.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Información del estado -->
+                <div class="report-list-footer">
+
+                    <span class="status-dot"></span>
+
+                    Los reportes son revisados antes de
+                    marcarse como resueltos.
+
+                </div>
+
+            </section>
+
+        </div>
+
+
+
+        <!-- ===================================== -->
+        <!-- SECCIÓN INFORMATIVA                   -->
+        <!-- ===================================== -->
+
+        <section class="report-photo-banner">
+
+            <!-- Imagen -->
+            <img
+                src="imagenes/separacion-residuos.webp"
+                alt="Contenedores para separar residuos orgánicos y materiales reciclables en un mercado"
+                loading="lazy"
+            >
+
+            <!-- Información -->
+            <div>
+
+                <span class="eyebrow">
+                    UNA BUENA DESCRIPCIÓN AYUDA
+                </span>
+
+                <h2>
+                    Reporta el problema, no a la persona.
+                </h2>
+
+                <p>
+                    Enfócate en el lugar, el residuo y la urgencia.
+                    Así promovemos una solución respetuosa
+                    y útil para todos.
+                </p>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+
+    <!-- ===================================== -->
+    <!-- PIE DE PÁGINA                         -->
+    <!-- ===================================== -->
+
+    <footer class="footer">
+
+        <div class="footer-inner">
+
+            <!-- Logo -->
+            <a class="brand footer-brand" href="index.html">
+
+                <span class="brand-icon">
+                    🌿
+                </span>
+
+                <span>
+                    <b>EcoRuta</b>
+                    <small>Mercado Vinocanchón</small>
+                </span>
+
+            </a>
+
+
+            <!-- Mensaje -->
+            <p>
+                Pequeñas acciones, grandes cambios.
+            </p>
+
+
+            <!-- Derechos -->
+            <small>
+                © 2026 EcoRuta Vinocanchón ·
+                Proyecto de sostenibilidad comunitaria
+            </small>
+
+        </div>
+
+    </footer>
+
+
+
+    <!-- ===================================== -->
+    <!-- ARCHIVOS JAVASCRIPT                   -->
+    <!-- ===================================== -->
+
+    <!-- Librería Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <!-- Configuración de Supabase -->
+    <script src="js/configuracion.js"></script>
+
+    <!-- Funciones principales -->
+    <script src="codigo.js"></script>
+
+</body>
+</html>
