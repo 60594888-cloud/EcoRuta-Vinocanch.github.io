@@ -1,4 +1,4 @@
-"""EcoRuta Vinocanchón: servidor de demostración con SQLite compartido.
+"""Terranova : servidor de demostración con SQLite compartido.
 Ejecutar: python server.py | Crear admin: python server.py create-admin
 """
 import base64, hashlib, hmac, json, mimetypes, os, secrets, sqlite3, sys, time
