@@ -1,57 +1,401 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Terranova | Mapa de prioridades</title>
+    <meta name="theme-color" content="#0b4c34">
+
+    <meta
+        name="description"
+        content="Consulta las prioridades de limpieza por sector en EcoRuta Vinocanchón."
+    >
+
+    <title>EcoRuta | Mapa de prioridades</title>
+
+    <!-- Icono de la página -->
+    <link rel="icon" type="image/svg+xml" href="imagenes/favicon.svg">
+
+    <!-- Fuentes de Google -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <!-- Archivo CSS -->
     <link rel="stylesheet" href="estilos.css">
 </head>
-<body>
-    <header>
-        <h1>📍 Mapa de prioridades</h1>
-        <p>Identifica los sectores que necesitan limpieza.</p>
+
+<body data-page="mapa">
+
+    <!-- ===================================== -->
+    <!-- ENCABEZADO Y MENÚ DE NAVEGACIÓN       -->
+    <!-- ===================================== -->
+
+    <header class="topbar">
+
+        <!-- Logo -->
+        <a class="brand" href="index.html">
+
+            <span class="brand-icon" aria-hidden="true">
+                🌿
+            </span>
+
+            <span>
+                <b>EcoRuta</b>
+                <small>Mercado Vinocanchón</small>
+            </span>
+
+        </a>
+
+        <!-- Botón de menú para celulares -->
+        <button
+            class="menu-toggle"
+            id="menu-toggle"
+            type="button"
+            aria-label="Abrir menú"
+            aria-controls="nav"
+            aria-expanded="false"
+        >
+            ☰
+        </button>
+
+        <!-- Navegación -->
+        <nav class="nav" id="nav" aria-label="Navegación principal">
+
+            <a href="index.html">
+                Inicio
+            </a>
+
+            <a
+                href="mapa.html"
+                class="active"
+                aria-current="page"
+            >
+                Mapa de prioridades
+            </a>
+
+            <a href="reportes.html">
+                Reportes
+            </a>
+
+            <a href="recompensas.html">
+                EcoPuntos
+            </a>
+
+            <a href="admin.html">
+                Administración
+            </a>
+
+            <a class="nav-login" href="login.html">
+                Iniciar sesión
+                <span aria-hidden="true">↗</span>
+            </a>
+
+        </nav>
+
     </header>
 
-    <nav>
-        <a href="index.html">Inicio</a>
-        <a href="mapa.html">Mapa de prioridades</a>
-        <a href="reportes.html">Reportes</a>
-        <a href="recompensas.html">Recompensas</a>
-        <a href="admin.html">Administración</a>
-    </nav>
 
-    <main class="contenedor">
-        <section class="panel">
-            <h2>Sectores del mercado</h2>
-            <p>Los colores representan la cantidad de reportes activos registrados.</p>
+    <!-- ===================================== -->
+    <!-- CONTENIDO PRINCIPAL                   -->
+    <!-- ===================================== -->
 
-            <div class="leyenda">
-                <span>🟢 Prioridad baja</span>
-                <span>🟡 Prioridad media</span>
-                <span>🔴 Prioridad alta</span>
+    <main class="page-main">
+
+        <!-- Título de la página -->
+        <div class="page-heading">
+
+            <div>
+
+                <span class="eyebrow green-text">
+                    DATOS PARA ACTUAR MEJOR
+                </span>
+
+                <h1>Mapa de prioridades</h1>
+
+                <p>
+                    Revisa qué sectores necesitan mayor atención
+                    según los reportes de la comunidad.
+                </p>
+
             </div>
 
-            <div id="mapa-sectores" class="sectores">
-                <p>Cargando información...</p>
+            <!-- Botón para crear reportes -->
+            <a href="reportes.html" class="btn btn-primary">
+                ＋ Crear reporte
+            </a>
+
+        </div>
+
+
+        <!-- ===================================== -->
+        <!-- INTRODUCCIÓN DEL MAPA                 -->
+        <!-- ===================================== -->
+
+        <section class="map-intro">
+
+            <!-- Información introductoria -->
+            <div class="map-intro-copy">
+
+                <span class="map-intro-icon">
+                    ⌖
+                </span>
+
+                <div>
+
+                    <b>
+                        Observa. Prioriza. Mejora.
+                    </b>
+
+                    <p>
+                        Las zonas se organizan por nivel de prioridad
+                        a partir de los reportes activos registrados.
+                    </p>
+
+                </div>
+
             </div>
+
+            <!-- Imagen del mercado -->
+            <img
+                src="imagenes/mercado-ecoruta.webp"
+                alt="Pasillo de un mercado local de Cusco con puestos de frutas y verduras"
+                loading="lazy"
+            >
+
         </section>
 
+
+        <!-- ===================================== -->
+        <!-- SECTORES DEL MERCADO                  -->
+        <!-- ===================================== -->
+
         <section class="panel">
-            <h2>Información</h2>
-            <p>
-                Este panel muestra prioridades aproximadas por sector.
-                No representa ubicaciones GPS exactas.
+
+            <!-- Encabezado del panel -->
+            <div class="panel-title">
+
+                <div>
+
+                    <h2>Sectores del mercado</h2>
+
+                    <p>
+                        La prioridad se actualizará cuando
+                        se registren nuevos reportes.
+                    </p>
+
+                </div>
+
+                <!-- Botón actualizar -->
+                <button
+                    type="button"
+                    class="btn btn-outline"
+                    onclick="cargarMapa()"
+                >
+                    ↻ Actualizar
+                </button>
+
+            </div>
+
+
+            <!-- ================================= -->
+            <!-- LEYENDA DE PRIORIDADES            -->
+            <!-- ================================= -->
+
+            <div class="leyenda legend-modern">
+
+                <!-- Prioridad baja -->
+                <span>
+
+                    <i class="legend-dot low"></i>
+
+                    Prioridad baja
+
+                </span>
+
+                <!-- Prioridad media -->
+                <span>
+
+                    <i class="legend-dot medium"></i>
+
+                    Prioridad media
+
+                </span>
+
+                <!-- Prioridad alta -->
+                <span>
+
+                    <i class="legend-dot high"></i>
+
+                    Prioridad alta
+
+                </span>
+
+            </div>
+
+
+            <!-- ================================= -->
+            <!-- CONTENEDOR DEL MAPA               -->
+            <!-- ================================= -->
+
+            <div
+                id="mapa-sectores"
+                class="sectores sectors-modern"
+                aria-live="polite"
+            >
+
+                <!-- Mensaje inicial -->
+                <div class="empty-state">
+
+                    <span>⌖</span>
+
+                    <b>
+                        Preparando información
+                    </b>
+
+                    <p>
+                        Los sectores aparecerán aquí cuando
+                        la base de datos esté conectada.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- Nota informativa -->
+            <p class="fine-print">
+                * Este panel muestra una prioridad esquemática
+                por sector; no representa coordenadas GPS
+                ni un mapa geográfico exacto.
             </p>
-            <button onclick="cargarMapa()">Actualizar información</button>
+
         </section>
+
+
+        <!-- ===================================== -->
+        <!-- INFORMACIÓN ADICIONAL                 -->
+        <!-- ===================================== -->
+
+        <div class="map-bottom-grid">
+
+
+            <!-- ================================= -->
+            <!-- CÁLCULO DE PRIORIDADES            -->
+            <!-- ================================= -->
+
+            <article class="info-card">
+
+                <span class="info-card-icon">
+                    💡
+                </span>
+
+                <div>
+
+                    <h3>
+                        ¿Cómo se calcula?
+                    </h3>
+
+                    <p>
+                        Se toma en cuenta la cantidad de reportes
+                        activos y el número de incidencias
+                        marcadas como urgentes.
+                    </p>
+
+                </div>
+
+            </article>
+
+
+            <!-- ================================= -->
+            <!-- PARTICIPACIÓN COMUNITARIA         -->
+            <!-- ================================= -->
+
+            <article class="info-card">
+
+                <span class="info-card-icon">
+                    🤝
+                </span>
+
+                <div>
+
+                    <h3>
+                        Tu reporte aporta
+                    </h3>
+
+                    <p>
+                        Cuantos más detalles claros compartas,
+                        mejor podrá comprenderse la necesidad
+                        de cada sector.
+                    </p>
+
+                    <a href="reportes.html" class="text-link">
+                        Registrar una incidencia →
+                    </a>
+
+                </div>
+
+            </article>
+
+        </div>
+
     </main>
 
-    <footer>
-        <p>EcoRuta Vinocanchón © 2026</p>
+
+    <!-- ===================================== -->
+    <!-- PIE DE PÁGINA                         -->
+    <!-- ===================================== -->
+
+    <footer class="footer">
+
+        <div class="footer-inner">
+
+            <!-- Logo -->
+            <a class="brand footer-brand" href="index.html">
+
+                <span class="brand-icon">
+                    🌿
+                </span>
+
+                <span>
+                    <b>EcoRuta</b>
+                    <small>Mercado Vinocanchón</small>
+                </span>
+
+            </a>
+
+            <!-- Mensaje -->
+            <p>
+                Pequeñas acciones, grandes cambios.
+            </p>
+
+            <!-- Derechos -->
+            <small>
+                © 2026 EcoRuta Vinocanchón ·
+                Proyecto de sostenibilidad comunitaria
+            </small>
+
+        </div>
+
     </footer>
 
+
+    <!-- ===================================== -->
+    <!-- ARCHIVOS JAVASCRIPT                   -->
+    <!-- ===================================== -->
+
+    <!-- Librería Supabase -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="configuracion.js"></script>
+
+    <!-- Configuración de Supabase -->
+    <script src="js/configuracion.js"></script>
+
+    <!-- Funciones principales -->
     <script src="codigo.js"></script>
+
 </body>
 </html>
