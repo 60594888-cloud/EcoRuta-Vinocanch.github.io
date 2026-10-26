@@ -1,253 +1,909 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Terranova | Inicio</title>
+    <meta name="theme-color" content="#0b4c34">
+
+    <meta
+        name="description"
+        content="EcoRuta: comunidad y acciones para mejorar la gestión de residuos en el mercado Vinocanchón de Cusco."
+    >
+
+    <title>EcoRuta | Un mercado más limpio empieza contigo</title>
+
+    <!-- Icono de la página -->
+    <link rel="icon" type="image/svg+xml" href="imagenes/favicon.svg">
+
+    <!-- Fuentes de Google -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <!-- Archivo CSS -->
     <link rel="stylesheet" href="estilos.css">
 </head>
 
 <body data-page="inicio">
 
-    <!-- BARRA DE NAVEGACIÓN -->
-    
-<!-- BARRA DE NAVEGACIÓN -->
-<header class="topbar">
+    <!-- ===================================== -->
+    <!-- ENCABEZADO Y MENÚ DE NAVEGACIÓN       -->
+    <!-- ===================================== -->
 
-    <!-- LOGOTIPO -->
-    <a class="brand" href="index.html">
-        <span class="brand-icon">🌿</span>
+    <header class="topbar">
 
-        <span>
-            <b>Terranova</b>
-            <small>Vinocanchón</small>
-        </span>
-    </a>
+        <!-- Logo -->
+        <a
+            class="brand"
+            href="index.html"
+            aria-label="EcoRuta, ir al inicio"
+        >
 
-    <!-- BOTÓN PARA CELULARES -->
-    <button
-        class="menu-toggle"
-        id="menu-toggle"
-        type="button"
-        aria-label="Abrir menú"
-        aria-controls="nav"
-        aria-expanded="false">
-        ☰
-    </button>
+            <span class="brand-icon" aria-hidden="true">
+                🌿
+            </span>
 
-    <!-- ENLACES DEL MENÚ -->
-    <nav class="nav" id="nav" aria-label="Navegación principal">
+            <span>
+                <b>EcoRuta</b>
+                <small>Mercado Vinocanchón</small>
+            </span>
 
-        <a href="index.html"
-           class="active"
-           aria-current="page">
-            Inicio
         </a>
 
-        <a href="mapa.html">
-            Mapa de prioridades
-        </a>
+        <!-- Botón de menú para celulares -->
+        <button
+            class="menu-toggle"
+            id="menu-toggle"
+            type="button"
+            aria-label="Abrir menú"
+            aria-controls="nav"
+            aria-expanded="false"
+        >
+            ☰
+        </button>
 
-        <a href="reportes.html">
-            Reportes
-        </a>
+        <!-- Navegación principal -->
+        <nav
+            class="nav"
+            id="nav"
+            aria-label="Navegación principal"
+        >
 
-        <a href="recompensas.html">
-            Recompensas
-        </a>
+            <a
+                class="active"
+                href="index.html"
+                aria-current="page"
+            >
+                Inicio
+            </a>
 
-        <a href="admin.html">
-            Administración
-        </a>
+            <a href="mapa.html">
+                Mapa de prioridades
+            </a>
 
-        <a href="login.html" class="nav-login">
-            Iniciar sesión
-        </a>
+            <a href="reportes.html">
+                Reportes
+            </a>
 
-    </nav>
+            <a href="recompensas.html">
+                EcoPuntos
+            </a>
 
-</header>
+            <a href="admin.html">
+                Administración
+            </a>
 
+            <a class="nav-login" href="login.html">
+                Iniciar sesión
+                <span aria-hidden="true">↗</span>
+            </a>
+
+        </nav>
+
+    </header>
+
+
+    <!-- ===================================== -->
+    <!-- CONTENIDO PRINCIPAL                   -->
+    <!-- ===================================== -->
 
     <main>
 
-        <!-- PORTADA PRINCIPAL -->
-        <section class="hero">
+
+        <!-- ================================= -->
+        <!-- SECCIÓN PRINCIPAL - HERO          -->
+        <!-- ================================= -->
+
+        <section
+            class="hero"
+            aria-labelledby="hero-title"
+        >
+
+            <!-- Capa de fondo -->
             <div class="hero-shade"></div>
 
+            <!-- Contenido principal -->
             <div class="hero-content">
+
                 <span class="eyebrow">
-                    🌎 JUNTOS POR UN MERCADO SOSTENIBLE
+
+                    <span class="eyebrow-dot"></span>
+
+                    COMUNIDAD · SOSTENIBILIDAD · CUSCO
+
                 </span>
 
-                <h1>
-                    Un mercado limpio<br>
-                    también es un mercado<br>
-                    <span>más fuerte.</span>
+                <!-- Título principal -->
+                <h1 id="hero-title">
+
+                    Un mercado más limpio empieza con una
+
+                    <span>
+                        acción pequeña.
+                    </span>
+
                 </h1>
 
+                <!-- Descripción -->
                 <p>
-                    Reporta residuos, identifica sectores prioritarios
-                    y participa en el cuidado de nuestro mercado Vinocanchón.
+                    Hagamos de Vinocanchón un lugar más ordenado:
+                    reporta la acumulación de residuos, reconoce
+                    las zonas que necesitan atención y participa
+                    en el cambio.
                 </p>
 
+
+                <!-- Botones principales -->
                 <div class="hero-actions">
-                    <a href="reportes.html" class="btn btn-primary">
-                        ♻ Reportar residuos
+
+                    <a
+                        href="reportes.html"
+                        class="btn btn-primary"
+                    >
+                        ♻️ Registrar un reporte
                     </a>
 
-                    <a href="mapa.html" class="btn btn-light">
-                        📍 Ver mapa
+                    <a
+                        href="mapa.html"
+                        class="btn btn-light"
+                    >
+                        ⌖ Explorar prioridades
                     </a>
+
                 </div>
+
+
+                <!-- Mensaje de confianza -->
+                <div class="hero-proof">
+
+                    <span class="proof-icon">
+                        ✓
+                    </span>
+
+                    <span>
+                        Una comunidad organizada puede
+                        generar grandes cambios.
+                    </span>
+
+                </div>
+
             </div>
 
-            <div class="hero-note">
-                Pequeñas acciones,<br>
-                <strong>grandes cambios.</strong> 🌱
+
+            <!-- ================================= -->
+            <!-- TARJETA DE META                   -->
+            <!-- ================================= -->
+
+            <aside
+                class="hero-note"
+                aria-label="Mensaje de EcoRuta"
+            >
+
+                <span class="hero-note-icon">
+                    🌱
+                </span>
+
+                <span class="hero-note-label">
+                    NUESTRA META
+                </span>
+
+                <strong>
+                    Menos residuos.<br>
+                    Más oportunidades.
+                </strong>
+
+                <small>
+                    El cambio empieza aquí.
+                </small>
+
+            </aside>
+
+
+            <!-- Mensaje inferior -->
+            <div class="hero-bottom-label">
+
+                <span class="hero-pulse"></span>
+
+                Cuidemos el mercado que nos une
+
             </div>
+
         </section>
 
-        <!-- ESTADÍSTICAS -->
-        <section class="stats-grid">
 
+
+        <!-- ===================================== -->
+        <!-- INDICADORES DEL PROYECTO              -->
+        <!-- ===================================== -->
+
+        <section
+            class="stats-grid"
+            aria-label="Indicadores de EcoRuta"
+        >
+
+
+            <!-- Reportes registrados -->
             <article class="stat-card">
-                <span class="stat-icon green">📋</span>
+
+                <span class="stat-icon green">
+                    ♻
+                </span>
+
                 <div>
+
                     <p>Reportes registrados</p>
-                    <strong id="stat-reportes">—</strong>
-                    <small>Colabora con tu comunidad</small>
+
+                    <strong id="stat-reportes">
+                        —
+                    </strong>
+
+                    <small>
+                        Incidencias de la comunidad
+                    </small>
+
                 </div>
+
             </article>
 
+
+            <!-- Zonas monitoreadas -->
             <article class="stat-card">
-                <span class="stat-icon orange">📍</span>
+
+                <span class="stat-icon orange">
+                    ⌖
+                </span>
+
                 <div>
-                    <p>Sectores monitoreados</p>
-                    <strong>5</strong>
-                    <small>En todo el mercado</small>
+
+                    <p>Zonas monitoreadas</p>
+
+                    <strong>05</strong>
+
+                    <small>
+                        Sectores del mercado
+                    </small>
+
                 </div>
+
             </article>
 
+
+            <!-- Reportes resueltos -->
             <article class="stat-card">
-                <span class="stat-icon blue">✓</span>
+
+                <span class="stat-icon blue">
+                    ✓
+                </span>
+
                 <div>
+
                     <p>Reportes resueltos</p>
-                    <strong id="stat-resueltos">—</strong>
-                    <small>Avanzamos juntos</small>
+
+                    <strong id="stat-resueltos">
+                        —
+                    </strong>
+
+                    <small>
+                        Avances de limpieza
+                    </small>
+
                 </div>
+
             </article>
 
+
+            <!-- EcoPuntos -->
             <article class="stat-card">
-                <span class="stat-icon yellow">★</span>
+
+                <span class="stat-icon yellow">
+                    ★
+                </span>
+
                 <div>
-                    <p>EcoPuntos disponibles</p>
-                    <strong id="stat-puntos">—</strong>
-                    <small>Participa y suma puntos</small>
+
+                    <p>Mis EcoPuntos</p>
+
+                    <strong id="stat-puntos">
+                        —
+                    </strong>
+
+                    <small>
+                        Participa y suma puntos
+                    </small>
+
                 </div>
+
             </article>
 
         </section>
 
-        <!-- CÓMO FUNCIONA -->
-        <section class="section container">
 
-            <div class="section-heading">
-                <div>
-                    <span class="eyebrow green-text">CÓMO FUNCIONA</span>
 
-                    <h2>Un cambio sencillo empieza contigo</h2>
+        <!-- ===================================== -->
+        <!-- PRESENTACIÓN DEL PROBLEMA             -->
+        <!-- ===================================== -->
+
+        <section
+            class="story-section container"
+            aria-labelledby="story-title"
+        >
+
+            <div class="story-grid">
+
+
+                <!-- ================================= -->
+                <!-- IMAGEN DEL MERCADO                -->
+                <!-- ================================= -->
+
+                <div class="story-photo-wrap">
+
+                    <img
+                        class="story-photo"
+                        src="imagenes/separacion-residuos.webp"
+                        alt="Puestos de verduras de un mercado y contenedores separados para residuos orgánicos y reciclables"
+                        loading="lazy"
+                    >
+
+
+                    <!-- Descripción de la imagen -->
+                    <div class="photo-caption">
+
+                        <span>
+                            🌎
+                        </span>
+
+                        <span>
+
+                            <b>
+                                Un mejor Vinocanchón
+                            </b>
+
+                            <small>
+                                Comienza con decisiones cotidianas
+                            </small>
+
+                        </span>
+
+                    </div>
+
+
+                    <!-- Etiqueta decorativa -->
+                    <span class="photo-sticker">
+                        CADA ACCIÓN CUENTA
+                    </span>
+
+                </div>
+
+
+
+                <!-- ================================= -->
+                <!-- INFORMACIÓN DEL PROYECTO          -->
+                <!-- ================================= -->
+
+                <div class="story-content">
+
+                    <span class="eyebrow green-text">
+                        EL RETO QUE NOS UNE
+                    </span>
+
+                    <h2 id="story-title">
+                        Los residuos también pueden
+                        convertirse en una oportunidad.
+                    </h2>
 
                     <p>
-                        Tres pasos para ayudar a mantener limpio Vinocanchón.
+                        Cuando sabemos dónde y qué se acumula,
+                        es más fácil organizar la limpieza,
+                        separar materiales aprovechables
+                        y cuidar los espacios donde compramos
+                        y trabajamos.
                     </p>
+
+
+                    <!-- Puntos importantes -->
+                    <div class="story-points">
+
+
+                        <!-- Punto 1 -->
+                        <div class="story-point">
+
+                            <span class="check-circle">
+                                ✓
+                            </span>
+
+                            <div>
+
+                                <b>
+                                    Identificar el problema
+                                </b>
+
+                                <small>
+                                    Ubica el sector y describe
+                                    lo que ocurre.
+                                </small>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- Punto 2 -->
+                        <div class="story-point">
+
+                            <span class="check-circle">
+                                ✓
+                            </span>
+
+                            <div>
+
+                                <b>
+                                    Priorizar las acciones
+                                </b>
+
+                                <small>
+                                    La urgencia ayuda a ordenar
+                                    la atención.
+                                </small>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- Punto 3 -->
+                        <div class="story-point">
+
+                            <span class="check-circle">
+                                ✓
+                            </span>
+
+                            <div>
+
+                                <b>
+                                    Dar seguimiento
+                                </b>
+
+                                <small>
+                                    Consulta el estado de
+                                    los reportes registrados.
+                                </small>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Enlace al mapa -->
+                    <a
+                        href="mapa.html"
+                        class="text-link"
+                    >
+                        Conocer las zonas prioritarias
+
+                        <span aria-hidden="true">
+                            →
+                        </span>
+
+                    </a>
+
                 </div>
+
             </div>
+
+        </section>
+
+
+
+        <!-- ===================================== -->
+        <!-- CÓMO FUNCIONA ECORUTA                 -->
+        <!-- ===================================== -->
+
+        <section
+            class="section container"
+            aria-labelledby="steps-title"
+        >
+
+            <!-- Encabezado -->
+            <div class="section-heading">
+
+                <div>
+
+                    <span class="eyebrow green-text">
+                        ASÍ FUNCIONA ECORUTA
+                    </span>
+
+                    <h2 id="steps-title">
+                        Tres pasos para impulsar el cambio
+                    </h2>
+
+                    <p>
+                        Usar la plataforma es sencillo.
+                        Tu participación ayuda a que los
+                        problemas sean más visibles.
+                    </p>
+
+                </div>
+
+                <a
+                    href="reportes.html"
+                    class="btn btn-outline"
+                >
+                    Empezar ahora
+
+                    <span aria-hidden="true">
+                        →
+                    </span>
+
+                </a>
+
+            </div>
+
+
+
+            <!-- ================================= -->
+            <!-- TARJETAS DE PASOS                 -->
+            <!-- ================================= -->
 
             <div class="feature-grid">
 
+
+                <!-- PASO 1 -->
                 <article class="feature-card">
-                    <div class="feature-icon">📍</div>
-                    <span class="step">PASO 01</span>
-                    <h3>Identifica</h3>
+
+                    <div class="feature-icon">
+                        📍
+                    </div>
+
+                    <span class="step">
+                        PASO 01
+                    </span>
+
+                    <h3>
+                        Identifica
+                    </h3>
+
                     <p>
-                        Observa un sector con residuos acumulados
-                        o que necesite atención.
+                        Encuentra residuos acumulados en la entrada,
+                        los puestos o las zonas comunes del mercado.
                     </p>
+
+                    <div class="feature-foot">
+
+                        <span>
+                            Ubicación
+                        </span>
+
+                        <span>
+                            01 / 03
+                        </span>
+
+                    </div>
+
                 </article>
 
+
+                <!-- PASO 2 -->
                 <article class="feature-card">
-                    <div class="feature-icon">📝</div>
-                    <span class="step">PASO 02</span>
-                    <h3>Reporta</h3>
+
+                    <div class="feature-icon">
+                        📝
+                    </div>
+
+                    <span class="step">
+                        PASO 02
+                    </span>
+
+                    <h3>
+                        Reporta
+                    </h3>
+
                     <p>
-                        Indica el sector, el tipo de residuo
-                        y qué tan urgente es atenderlo.
+                        Selecciona el sector, indica el tipo
+                        de residuo y explica por qué requiere
+                        atención.
                     </p>
+
+                    <div class="feature-foot">
+
+                        <span>
+                            Participación
+                        </span>
+
+                        <span>
+                            02 / 03
+                        </span>
+
+                    </div>
+
                 </article>
 
+
+                <!-- PASO 3 -->
                 <article class="feature-card">
-                    <div class="feature-icon">🌱</div>
-                    <span class="step">PASO 03</span>
-                    <h3>Participa</h3>
+
+                    <div class="feature-icon">
+                        🌱
+                    </div>
+
+                    <span class="step">
+                        PASO 03
+                    </span>
+
+                    <h3>
+                        Haz seguimiento
+                    </h3>
+
                     <p>
-                        Consulta el estado del reporte y apoya
-                        las acciones de limpieza.
+                        Revisa el estado del reporte y suma
+                        EcoPuntos cuando se complete el proceso.
                     </p>
+
+                    <div class="feature-foot">
+
+                        <span>
+                            Impacto
+                        </span>
+
+                        <span>
+                            03 / 03
+                        </span>
+
+                    </div>
+
                 </article>
 
             </div>
+
         </section>
 
-        <!-- MENSAJE DE IMPACTO -->
-        <section class="impact-banner container">
 
-            <div>
-                <span class="eyebrow">NUESTRO COMPROMISO</span>
 
-                <h2>
-                    Unidos por un Vinocanchón más limpio y sostenible.
+        <!-- ===================================== -->
+        <!-- CONSEJOS ECOLÓGICOS                   -->
+        <!-- ===================================== -->
+
+        <section
+            class="tip-section container"
+            aria-labelledby="tip-title"
+        >
+
+            <!-- Encabezado -->
+            <div class="tip-heading">
+
+                <span class="eyebrow green-text">
+                    PEQUEÑAS ACCIONES, GRAN IMPACTO
+                </span>
+
+                <h2 id="tip-title">
+                    Un mercado más responsable
+                    se construye en equipo.
                 </h2>
 
                 <p>
-                    La información de la comunidad ayuda a organizar
-                    mejor las labores de limpieza.
+                    Estas acciones hacen que las zonas
+                    de trabajo y compra sean más
+                    agradables para todos.
                 </p>
+
             </div>
 
-            <a href="reportes.html" class="btn btn-primary">
-                Quiero participar →
+
+            <!-- Tarjetas de consejos -->
+            <div class="tip-grid">
+
+
+                <!-- Consejo 1 -->
+                <article class="tip-card tip-organic">
+
+                    <span class="tip-emoji">
+                        🥬
+                    </span>
+
+                    <div>
+
+                        <b>
+                            Separa los orgánicos
+                        </b>
+
+                        <p>
+                            Los restos de frutas y verduras
+                            pueden aprovecharse mediante
+                            procesos adecuados.
+                        </p>
+
+                    </div>
+
+                </article>
+
+
+                <!-- Consejo 2 -->
+                <article class="tip-card tip-recycle">
+
+                    <span class="tip-emoji">
+                        ♻️
+                    </span>
+
+                    <div>
+
+                        <b>
+                            Recupera materiales
+                        </b>
+
+                        <p>
+                            Cartón, vidrio y ciertos plásticos
+                            pueden tener una segunda vida
+                            si se separan.
+                        </p>
+
+                    </div>
+
+                </article>
+
+
+                <!-- Consejo 3 -->
+                <article class="tip-card tip-community">
+
+                    <span class="tip-emoji">
+                        🤝
+                    </span>
+
+                    <div>
+
+                        <b>
+                            Reporta con respeto
+                        </b>
+
+                        <p>
+                            Describe la situación con claridad
+                            para facilitar su revisión
+                            y seguimiento.
+                        </p>
+
+                    </div>
+
+                </article>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ===================================== -->
+        <!-- MENSAJE FINAL DE PARTICIPACIÓN        -->
+        <!-- ===================================== -->
+
+        <section class="impact-banner container">
+
+            <div>
+
+                <span class="eyebrow">
+                    NUESTRO COMPROMISO
+                </span>
+
+                <h2>
+                    Vinocanchón es de todos.
+                    Su cuidado también.
+                </h2>
+
+                <p>
+                    Haz visible una incidencia y ayúdanos
+                    a priorizar las acciones de limpieza.
+                </p>
+
+            </div>
+
+            <a
+                href="reportes.html"
+                class="btn btn-light"
+            >
+                Quiero participar
+
+                <span aria-hidden="true">
+                    →
+                </span>
+
             </a>
 
         </section>
 
     </main>
 
-    <!-- PIE DE PÁGINA -->
+
+
+    <!-- ===================================== -->
+    <!-- PIE DE PÁGINA                         -->
+    <!-- ===================================== -->
+
     <footer class="footer">
 
-        <a class="brand footer-brand" href="index.html">
-            <span class="brand-icon">🌿</span>
-            <span>
-                <b>EcoRuta</b>
-                <small>Vinocanchón</small>
-            </span>
-        </a>
+        <div class="footer-inner">
 
-        <p>Pequeñas acciones, grandes cambios.</p>
+            <!-- Logo -->
+            <a
+                class="brand footer-brand"
+                href="index.html"
+            >
 
-        <small>
-            © 2026 EcoRuta Vinocanchón ·
-            Proyecto de sostenibilidad comunitaria
-        </small>
+                <span
+                    class="brand-icon"
+                    aria-hidden="true"
+                >
+                    🌿
+                </span>
+
+                <span>
+
+                    <b>
+                        EcoRuta
+                    </b>
+
+                    <small>
+                        Mercado Vinocanchón
+                    </small>
+
+                </span>
+
+            </a>
+
+
+            <!-- Mensaje -->
+            <p>
+                Pequeñas acciones, grandes cambios.
+            </p>
+
+
+            <!-- Derechos -->
+            <small>
+                © 2026 EcoRuta Vinocanchón ·
+                Proyecto de sostenibilidad comunitaria
+            </small>
+
+        </div>
 
     </footer>
 
-    <!-- SCRIPTS -->
+
+
+    <!-- ===================================== -->
+    <!-- ARCHIVOS JAVASCRIPT                   -->
+    <!-- ===================================== -->
+
+    <!-- Librería Supabase -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="configuracion.js"></script>
+
+    <!-- Configuración de Supabase -->
+    <script src="js/configuracion.js"></script>
+
+    <!-- Funciones principales -->
     <script src="codigo.js"></script>
 
 </body>
 </html>
-    
