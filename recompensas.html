@@ -1,53 +1,368 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Terranova | Recompensas</title>
+    <meta name="theme-color" content="#0b4c34">
+
+    <meta name="description"
+          content="Consulta tus EcoPuntos y las recompensas propuestas por Terranova Vinocanchón.">
+
+    <title>Terranova | EcoPuntos y recompensas</title>
+
+    <!-- Icono de la página -->
+    <link rel="icon" type="image/svg+xml" href="imagenes/favicon.svg">
+
+    <!-- Fuentes de Google -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <!-- Archivo CSS -->
     <link rel="stylesheet" href="estilos.css">
 </head>
-<body>
-    <header>
-        <h1>⭐ Terranova puntos y recompensas</h1>
-        <p>Participa en el cuidado del mercado y consulta tus beneficios.</p>
+
+<body data-page="recompensas">
+
+    <!-- ===================================== -->
+    <!-- ENCABEZADO Y MENÚ DE NAVEGACIÓN       -->
+    <!-- ===================================== -->
+
+    <header class="topbar">
+
+        <!-- Logo -->
+        <a class="brand" href="index.html">
+
+            <span class="brand-icon" aria-hidden="true">
+                🌿
+            </span>
+
+            <span>
+                <b>Terranova</b>
+                <small>Mercado Vinocanchón</small>
+            </span>
+
+        </a>
+
+        <!-- Botón de menú para celulares -->
+        <button
+            class="menu-toggle"
+            id="menu-toggle"
+            type="button"
+            aria-label="Abrir menú"
+            aria-controls="nav"
+            aria-expanded="false"
+        >
+            ☰
+        </button>
+
+        <!-- Navegación -->
+        <nav class="nav" id="nav" aria-label="Navegación principal">
+
+            <a href="index.html">
+                Inicio
+            </a>
+
+            <a href="mapa.html">
+                Mapa de prioridades
+            </a>
+
+            <a href="reportes.html">
+                Reportes
+            </a>
+
+            <a
+                href="recompensas.html"
+                class="active"
+                aria-current="page"
+            >
+                EcoPuntos
+            </a>
+
+            <a href="admin.html">
+                Administración
+            </a>
+
+            <a class="nav-login" href="login.html">
+                Iniciar sesión
+                <span aria-hidden="true">↗</span>
+            </a>
+
+        </nav>
+
     </header>
 
-    <nav>
-        <a href="index.html">Inicio</a>
-        <a href="mapa.html">Mapa de prioridades</a>
-        <a href="reportes.html">Reportes</a>
-        <a href="recompensas.html">Recompensas</a>
-        <a href="admin.html">Administración</a>
-    </nav>
 
-    <main class="contenedor">
-        <section class="panel puntos">
-            <h2>Mis EcoPuntos</h2>
-            <p class="numero-puntos" id="mis-puntos">0</p>
-            <p>Los puntos y canjes dependen de la configuración del sistema.</p>
-        </section>
+    <!-- ===================================== -->
+    <!-- CONTENIDO PRINCIPAL                   -->
+    <!-- ===================================== -->
 
-        <section class="panel">
-            <h2>Recompensas disponibles</h2>
-            <div id="lista-recompensas" class="tarjetas">
-                <p>Cargando recompensas...</p>
+    <main class="page-main">
+
+        <!-- Título de la página -->
+        <div class="page-heading">
+
+            <div>
+
+                <span class="eyebrow green-text">
+                    RECONOCEMOS TU PARTICIPACIÓN
+                </span>
+
+                <h1>EcoPuntos y recompensas</h1>
+
+                <p>
+                    Participa en el cuidado del mercado y descubre
+                    cómo reconocer tus acciones positivas.
+                </p>
+
             </div>
+
+            <div class="heading-chip">
+                <span>⭐</span>
+                Cada acción cuenta
+            </div>
+
+        </div>
+
+
+        <!-- ================================= -->
+        <!-- SECCIÓN DE ECO PUNTOS             -->
+        <!-- ================================= -->
+
+        <section class="points-banner points-banner-modern">
+
+            <!-- Información -->
+            <div class="points-banner-copy">
+
+                <span class="points-label">
+                    TU SALDO ECOLÓGICO
+                </span>
+
+                <h2>Mis EcoPuntos</h2>
+
+                <p>
+                    Los puntos representan tu participación
+                    en las acciones de mejora del mercado.
+                </p>
+
+                <a href="reportes.html" class="btn btn-light">
+                    Ganar EcoPuntos
+                    <span aria-hidden="true">→</span>
+                </a>
+
+            </div>
+
+            <!-- Total de puntos -->
+            <div class="points-total-wrap">
+
+                <span class="points-art" aria-hidden="true">
+                    🌿
+                </span>
+
+                <strong id="mis-puntos">0</strong>
+
+                <span>EcoPuntos</span>
+
+            </div>
+
+            <!-- Decoración -->
+            <div class="points-decoration" aria-hidden="true">
+                ✳
+            </div>
+
         </section>
 
-        <section class="panel">
-            <h2>Mis canjes</h2>
-            <div id="mis-canjes">
-                <p>Tus solicitudes de canje aparecerán aquí.</p>
+
+        <!-- ================================= -->
+        <!-- RECOMPENSAS DISPONIBLES           -->
+        <!-- ================================= -->
+
+        <section class="rewards-section panel">
+
+            <div class="panel-title">
+
+                <div>
+
+                    <h2>Recompensas disponibles</h2>
+
+                    <p>
+                        Las opciones y los costos dependen
+                        de la configuración del sistema.
+                    </p>
+
+                </div>
+
+                <span class="panel-emoji">
+                    🎁
+                </span>
+
             </div>
+
+            <!-- Lista de recompensas -->
+            <div
+                id="lista-recompensas"
+                class="tarjetas rewards-grid"
+                aria-live="polite"
+            >
+
+                <div class="empty-state">
+
+                    <span>🎁</span>
+
+                    <b>Preparando recompensas</b>
+
+                    <p>
+                        Conecta la base de datos para ver
+                        las opciones disponibles.
+                    </p>
+
+                </div>
+
+            </div>
+
+            <p class="fine-print">
+                Las recompensas son propuestas del proyecto.
+                La entrega de cada canje requiere validación
+                de la administración.
+            </p>
+
         </section>
+
+
+        <!-- ================================= -->
+        <!-- HISTORIAL DE CANJES               -->
+        <!-- ================================= -->
+
+        <section class="panel redemption-panel">
+
+            <div class="panel-title">
+
+                <div>
+
+                    <h2>Historial de canjes</h2>
+
+                    <p>
+                        Consulta aquí el seguimiento
+                        de tus solicitudes.
+                    </p>
+
+                </div>
+
+                <span class="panel-emoji">
+                    🧾
+                </span>
+
+            </div>
+
+            <!-- Contenedor del historial -->
+            <div
+                id="mis-canjes"
+                class="redemption-placeholder"
+            >
+
+                <span>🪴</span>
+
+                <div>
+
+                    <b>Tu historial se mostrará aquí</b>
+
+                    <p>
+                        Inicia sesión para consultar tu actividad.
+                        El canje seguro requiere completar
+                        la configuración del módulo correspondiente.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================================= -->
+        <!-- MENSAJE ECOLÓGICO                 -->
+        <!-- ================================= -->
+
+        <section class="eco-note">
+
+            <span class="eco-note-icon">
+                💚
+            </span>
+
+            <div>
+
+                <b>
+                    El mejor premio es un mercado más limpio.
+                </b>
+
+                <p>
+                    Los EcoPuntos son un incentivo adicional:
+                    la meta principal es mejorar juntos
+                    nuestro entorno.
+                </p>
+
+            </div>
+
+        </section>
+
     </main>
 
-    <footer>
-        <p>EcoRuta Vinocanchón © 2026</p>
+
+    <!-- ===================================== -->
+    <!-- PIE DE PÁGINA                         -->
+    <!-- ===================================== -->
+
+    <footer class="footer">
+
+        <div class="footer-inner">
+
+            <!-- Logo -->
+            <a class="brand footer-brand" href="index.html">
+
+                <span class="brand-icon">
+                    🌿
+                </span>
+
+                <span>
+                    <b>EcoRuta</b>
+                    <small>Mercado Vinocanchón</small>
+                </span>
+
+            </a>
+
+            <!-- Mensaje -->
+            <p>
+                Pequeñas acciones, grandes cambios.
+            </p>
+
+            <!-- Derechos -->
+            <small>
+                © 2026 EcoRuta Vinocanchón ·
+                Proyecto de sostenibilidad comunitaria
+            </small>
+
+        </div>
+
     </footer>
 
+
+    <!-- ===================================== -->
+    <!-- ARCHIVOS JAVASCRIPT                   -->
+    <!-- ===================================== -->
+
+    <!-- Supabase -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="configuracion.js"></script>
+
+    <!-- Configuración de Supabase -->
+    <script src="js/configuracion.js"></script>
+
+    <!-- Funciones principales -->
     <script src="codigo.js"></script>
+
 </body>
 </html>
