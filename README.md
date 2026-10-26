@@ -1,6 +1,6 @@
-# EcoRuta Vinocanchón 🌿
+# Terranova Vinocanchón 🌿
 
-EcoRuta es un prototipo académico de sostenibilidad comunitaria para ayudar a identificar residuos acumulados, visualizar sectores prioritarios y promover la participación de comerciantes y visitantes del mercado Vinocanchón, en Cusco.
+Terranova es un prototipo académico de sostenibilidad comunitaria para ayudar a identificar residuos acumulados, visualizar sectores prioritarios y promover la participación de comerciantes y visitantes del mercado Vinocanchón, en Cusco.
 
 ## Mejoras visuales incluidas
 
