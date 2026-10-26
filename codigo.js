@@ -526,6 +526,7 @@ document.addEventListener("DOMContentLoaded", () => {
     comprobarAdministrador();
 });
 
+
 // MENÚ RESPONSIVE
 document.addEventListener("DOMContentLoaded", function () {
     const botonMenu = document.getElementById("menu-toggle");
@@ -533,7 +534,17 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (botonMenu && menu) {
         botonMenu.addEventListener("click", function () {
-            menu.classList.toggle("open");
+            const abierto = menu.classList.toggle("open");
+
+            botonMenu.setAttribute("aria-expanded", abierto);
+
+            botonMenu.setAttribute(
+                "aria-label",
+                abierto ? "Cerrar menú" : "Abrir menú"
+            );
+
+            botonMenu.textContent = abierto ? "✕" : "☰";
         });
     }
 });
+
