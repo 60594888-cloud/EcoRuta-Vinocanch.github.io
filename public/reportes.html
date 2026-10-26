@@ -1,1 +1,91 @@
-<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#075c46"><title>Reportes | EcoRuta Vinocanchón</title><link rel="stylesheet" href="estilos.css"></head><body data-page="reportes"><div class="layout"><aside class="sidebar" id="sidebar"><a class="brand" href="index.html"><span class="brand-icon">🌿</span><span><strong>EcoRuta</strong><small>VINOCANCHÓN</small></span></a><div class="nav-label">TU MERCADO · TU COMUNIDAD</div><nav><a href="index.html" class="nav-link ">🏠 <span>Inicio</span></a><a href="mapa.html" class="nav-link ">🗺️ <span>Mapa de calor</span></a><a href="reportes.html" class="nav-link selected">🚮 <span>Reportes</span></a><a href="recompensas.html" class="nav-link ">🏆 <span>EcoPuntos</span></a><a href="admin.html" class="nav-link ">🛠️ <span>Administración</span></a></nav><div class="side-note">💚 <strong>Tu reporte cuenta</strong><p>Una comunidad más limpia empieza contigo.</p></div></aside><div class="workspace"><header class="topbar"><button class="hamburger" id="menuBtn" aria-label="Abrir menú">☰</button><div><small>📍 Cusco, Perú · Plataforma comunitaria</small><h2>Reportes</h2></div><div class="account"><span id="userName">Visitante</span><span id="pointBadge" class="pill">⭐ 0</span><button class="ghost small" id="logoutBtn">Salir</button></div></header><main><div class="page-head"><span class="kicker">TU VOZ CUENTA</span><h1>🚮 Reporta un problema</h1><p>Los reportes se envían a revisión. Cuando se aprueban y resuelven, recibes EcoPuntos.</p></div><div class="report-layout"><aside class="report-aside"><div class="report-emoji">🧹</div><h2>Tu reporte puede hacer la diferencia.</h2><p>Ayuda a identificar los lugares donde se acumula basura. No incluyas datos personales.</p><div class="guide-step"><b>1</b> Elige un sector</div><div class="guide-step"><b>2</b> Describe lo ocurrido</div><div class="guide-step"><b>3</b> Envía para validación</div><div class="aside-tip">🌱 Una comunidad limpia empieza con pequeños gestos.</div></aside><section class="card"><h2>📝 Nuevo reporte</h2><form id="reportForm"><div class="form-grid"><label>Sector del mercado<select name="sector" required><option value="">Selecciona un sector</option><option>Verduras</option><option>Carnes</option><option>Frutas</option><option>Comidas</option><option>Abarrotes</option></select></label><label>Tipo de residuo<select name="kind" required><option value="">Selecciona un tipo</option><option>Orgánico</option><option>Plástico</option><option>Papel y cartón</option><option>Vidrio</option><option>Mixto</option></select></label><label>Urgencia<select name="urgency" required><option value="">Selecciona la prioridad</option><option value="bajo">🟢 Baja</option><option value="medio">🟡 Media</option><option value="alto">🔴 Alta</option></select></label></div><label>Descripción (opcional)<textarea name="description" maxlength="500" placeholder="Ejemplo: Contenedor lleno cerca de los puestos de verduras"></textarea></label><button type="submit" class="primary full">🚀 Enviar reporte</button></form><div class="callout subtle">🔐 Solo el personal administrador puede aprobar o rechazar reportes. Los puntos se otorgan al resolver un reporte aprobado.</div></section></div><div class="section-head"><div><span class="kicker">SEGUIMIENTO</span><h2>Mis reportes</h2><p>Consulta el estado de tus solicitudes.</p></div><button id="refreshReports" class="ghost">↻ Actualizar</button></div><section class="card"><div class="filters"><input id="reportSearch" type="search" placeholder="🔎 Buscar por sector o residuo"><select id="statusFilter"><option value="all">Todos los estados</option><option value="pending">Pendientes</option><option value="approved">Aprobados</option><option value="rejected">Rechazados</option><option value="resolved">Resueltos</option></select></div><div id="reportList" class="report-list"><div class="empty">Cargando reportes…</div></div></section></main><footer>🌱 EcoRuta Vinocanchón · Plataforma comunitaria de demostración · Datos compartidos por el servidor</footer></div></div><div id="toast" role="status" class="toast"></div><script src="codigo.js" defer></script></body></html>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoRuta | Reportes</title>
+    <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+    <header>
+        <h1>🗑️ Reportes de residuos</h1>
+        <p>Registra los problemas de limpieza del mercado.</p>
+    </header>
+
+    <nav>
+        <a href="index.html">Inicio</a>
+        <a href="mapa.html">Mapa de prioridades</a>
+        <a href="reportes.html">Reportes</a>
+        <a href="recompensas.html">Recompensas</a>
+        <a href="admin.html">Administración</a>
+    </nav>
+
+    <main class="contenedor">
+        <section class="panel">
+            <h2>Nuevo reporte</h2>
+
+            <form id="form-reporte">
+                <label for="sector">Sector del mercado</label>
+                <select id="sector" required>
+                    <option value="">Selecciona un sector</option>
+                    <option value="Entrada principal">Entrada principal</option>
+                    <option value="Zona de frutas y verduras">Zona de frutas y verduras</option>
+                    <option value="Zona de carnes">Zona de carnes</option>
+                    <option value="Zona de comidas">Zona de comidas</option>
+                    <option value="Zona de residuos">Zona de residuos</option>
+                </select>
+
+                <label for="tipo-residuo">Tipo de residuo</label>
+                <select id="tipo-residuo" required>
+                    <option value="">Selecciona el tipo</option>
+                    <option value="Orgánico">Orgánico</option>
+                    <option value="Plástico">Plástico</option>
+                    <option value="Papel y cartón">Papel y cartón</option>
+                    <option value="Vidrio">Vidrio</option>
+                    <option value="Residuos mezclados">Residuos mezclados</option>
+                </select>
+
+                <label for="urgencia">Nivel de urgencia</label>
+                <select id="urgencia" required>
+                    <option value="Baja">Baja</option>
+                    <option value="Media">Media</option>
+                    <option value="Alta">Alta</option>
+                </select>
+
+                <label for="descripcion">Descripción del problema</label>
+                <textarea id="descripcion" rows="4" required
+                    placeholder="Describe el problema y el lugar donde ocurre"></textarea>
+
+                <button type="submit">Enviar reporte</button>
+            </form>
+
+            <p id="mensaje-reporte"></p>
+        </section>
+
+        <section class="panel">
+            <h2>Reportes registrados</h2>
+
+            <label for="filtro-estado">Filtrar por estado</label>
+            <select id="filtro-estado" onchange="cargarReportes()">
+                <option value="">Todos</option>
+                <option value="pendiente">Pendientes</option>
+                <option value="aprobado">Aprobados</option>
+                <option value="resuelto">Resueltos</option>
+                <option value="rechazado">Rechazados</option>
+            </select>
+
+            <div id="lista-reportes">
+                <p>Los reportes aparecerán aquí.</p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>EcoRuta Vinocanchón © 2026</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="configuracion.js"></script>
+    <script src="codigo.js"></script>
+</body>
+</html>
