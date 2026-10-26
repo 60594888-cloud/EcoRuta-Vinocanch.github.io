@@ -525,3 +525,15 @@ document.addEventListener("DOMContentLoaded", () => {
     cargarRecompensas();
     comprobarAdministrador();
 });
+
+// MENÚ RESPONSIVE
+document.addEventListener("DOMContentLoaded", function () {
+    const botonMenu = document.getElementById("menu-toggle");
+    const menu = document.getElementById("nav");
+
+    if (botonMenu && menu) {
+        botonMenu.addEventListener("click", function () {
+            menu.classList.toggle("open");
+        });
+    }
+});
