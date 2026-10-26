@@ -1,4 +1,4 @@
-# EcoRuta Vinocanchón — Dashboard comunitario con base de datos
+# Terranova — Dashboard comunitario con base de datos
 
 ## Requisitos
 - Python 3.10 o posterior. No necesitas instalar librerías adicionales.
