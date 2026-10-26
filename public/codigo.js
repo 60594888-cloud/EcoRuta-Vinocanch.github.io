@@ -1,27 +1,527 @@
-'use strict';
-const $=id=>document.getElementById(id);
-let currentUser=null;
-const icons={Verduras:'🥬',Carnes:'🥩',Frutas:'🍎',Comidas:'🍲',Abarrotes:'🛒'};
-const statusText={pending:'Pendiente de validación',approved:'Aprobado',rejected:'Rechazado',resolved:'Resuelto',requested:'Entrega pendiente',delivered:'Entregado'};
-const urgencyText={alto:'🔴 Alta',medio:'🟡 Media',bajo:'🟢 Baja'};
-const rewardIcons=['🥉','🛍️','🥇','🏅'];
-function toast(msg){const el=$('toast');if(!el)return;el.textContent=msg;el.classList.add('show');clearTimeout(window.toastTimer);window.toastTimer=setTimeout(()=>el.classList.remove('show'),3500)}
-function element(tag,cls,text){const el=document.createElement(tag);if(cls)el.className=cls;if(text!==undefined)el.textContent=text;return el}
-function empty(target,msg){target.replaceChildren(element('div','empty',msg))}
-function dateText(s){try{return new Date(s).toLocaleString('es-PE')}catch{return s}}
-async function api(path,{method='GET',data}={}){const opts={method,credentials:'same-origin',headers:{}};if(data!==undefined){opts.headers['Content-Type']='application/json';opts.body=JSON.stringify(data)}if(method!=='GET'&&currentUser)opts.headers['X-CSRF-Token']=currentUser.csrf;let response;try{response=await fetch('/api'+path,opts)}catch{throw Error('No se pudo conectar al servidor. ¿Está encendido?')}let body;try{body=await response.json()}catch{throw Error('Respuesta inesperada del servidor')}if(!response.ok)throw Error(body.error||'Ocurrió un error');return body}
-function safe(fn){return async(...args)=>{try{await fn(...args)}catch(e){toast('⚠️ '+e.message)}}}
-function initLogin(){let register=false;const form=$('authForm');function setMode(v){register=v;$('tabLogin').classList.toggle('active',!v);$('tabRegister').classList.toggle('active',v);$('authTitle').textContent=v?'Crear una cuenta':'Iniciar sesión';$('authSubmit').textContent=v?'Crear cuenta y entrar →':'Entrar a EcoRuta →';$('nameField').hidden=!v;form.elements.name.required=v;form.elements.password.autocomplete=v?'new-password':'current-password'}$('tabLogin').onclick=()=>setMode(false);$('tabRegister').onclick=()=>setMode(true);form.addEventListener('submit',safe(async e=>{e.preventDefault();const data=Object.fromEntries(new FormData(form));await api(register?'/register':'/login',{method:'POST',data});location.href='index.html'}))}
-async function initApp(){const me=await api('/me');if(!me.user){location.replace('login.html');return}currentUser=me.user;$('userName').textContent=me.user.name;$('pointBadge').textContent='⭐ '+me.user.points;$('menuBtn').onclick=()=>$('sidebar').classList.toggle('open');$('logoutBtn').onclick=safe(async()=>{await api('/logout',{method:'POST',data:{}});location.replace('login.html')});const page=document.body.dataset.page;if(page==='index')await loadDashboard();if(page==='mapa')await loadHeat();if(page==='reportes')await loadReports();if(page==='recompensas')await loadRewards();if(page==='admin')await loadAdmin()}
-async function loadDashboard(){const d=await api('/dashboard');const active=d.heat.length;$('totalReports').textContent=d.total;$('activeReports').textContent=active;$('resolvedReports').textContent=d.resolved;$('myPoints').textContent=currentUser.points}
-function heatInfo(d){const points={alto:5,medio:3,bajo:1};return d.sectors.map(sector=>{const list=d.heat.filter(x=>x.sector===sector);const score=list.reduce((a,r)=>a+(points[r.urgency]||0),0);return{sector,score,count:list.length}}).sort((a,b)=>b.score-a.score)}
-async function loadHeat(){const d=await api('/dashboard');const grid=$('heatGrid'),ranking=$('heatRanking');grid.replaceChildren();ranking.replaceChildren();heatInfo(d).forEach(({sector,score,count},i)=>{const cls=score>=5?'red':score>=3?'amber':score>0?'green':'gray';const tile=element('div','heat-sector '+cls);tile.append(element('span','sector-emoji',icons[sector]),element('h3','',sector),element('p','',count+' alerta(s) activa(s) · intensidad '+score));grid.append(tile);const row=element('div');const left=element('span');left.append(element('strong','',(i+1)+'. '+sector),element('small','',count+' alertas activas'));row.append(left,element('b','',score+' pts'));ranking.append(row)});$('mapUpdated').textContent='↻ Actualizado '+new Date().toLocaleTimeString('es-PE')}
-function reportCard(r,admin=false){const box=element('article','report-item');box.append(element('h3','',icons[r.sector]+' '+r.sector+' · '+r.kind),element('p','','📅 '+dateText(r.created)),element('p','','👤 '+(admin?r.author:'Tu reporte')),element('p','','📝 '+(r.description||'Sin descripción')));const badges=element('div','badges');badges.append(element('span','badge',urgencyText[r.urgency]||r.urgency),element('span','badge '+r.status,statusText[r.status]||r.status));box.append(badges);if(admin){const actions=element('div','report-actions');const choices=r.status==='pending'?[['approve','✓ Aprobar'],['reject','✕ Rechazar']]:r.status==='approved'?[['resolve','✓ Marcar resuelto']]:[];choices.forEach(([action,label])=>{const btn=element('button',action==='reject'?'ghost':'primary',label);btn.addEventListener('click',safe(async()=>{if(!confirm('¿Confirmar esta acción?'))return;await api('/admin/validate',{method:'POST',data:{id:r.id,action}});toast('Reporte actualizado');await loadAdmin()}));actions.append(btn)});box.append(actions)}return box}
-let myReports=[];
-function renderReports(){const term=$('reportSearch').value.trim().toLowerCase(),status=$('statusFilter').value;const list=myReports.filter(r=>(r.sector+' '+r.kind+' '+r.description).toLowerCase().includes(term)&&(status==='all'||r.status===status));const target=$('reportList');target.replaceChildren();if(!list.length){empty(target,'🌱 No hay reportes con estos filtros.');return}list.forEach(r=>target.append(reportCard(r)))}
-async function loadReports(){const d=await api('/reports');myReports=d.reports;renderReports()}
-function setupReports(){const form=$('reportForm');form.addEventListener('submit',safe(async e=>{e.preventDefault();const data=Object.fromEntries(new FormData(form));await api('/reports',{method:'POST',data});form.reset();toast('🌱 Reporte enviado para validación');await loadReports()}));$('reportSearch').addEventListener('input',renderReports);$('statusFilter').addEventListener('change',renderReports);$('refreshReports').onclick=safe(loadReports)}
-async function loadRewards(){const [d,redeems]=await Promise.all([api('/dashboard'),api('/redemptions')]);$('rewardPoints').textContent=currentUser.points;$('pointsProgress').style.width=Math.min(100,currentUser.points/20*100)+'%';const grid=$('rewardGrid');grid.replaceChildren();d.rewards.forEach((r,i)=>{const card=element('article','reward-card');card.append(element('div','reward-icon',rewardIcons[i]||'🎁'),element('h3','',r.name),element('p','',r.cost+' EcoPuntos'));const btn=element('button','primary full','🎁 Solicitar canje');btn.disabled=currentUser.points<r.cost;btn.onclick=safe(async()=>{if(!confirm('¿Canjear '+r.cost+' puntos por '+r.name+'?'))return;await api('/redeem',{method:'POST',data:{reward:r.name}});toast('Canje solicitado');await refreshMe();await loadRewards()});card.append(btn);grid.append(card)});const history=$('myRedemptions');history.replaceChildren();if(!redeems.redemptions.length){empty(history,'Todavía no tienes solicitudes de canje.');return}redeems.redemptions.forEach(r=>{const row=element('div','report-item');row.append(element('h3','',r.reward),element('p','','⭐ '+r.cost+' puntos · '+dateText(r.created)),element('span','badge '+r.status,statusText[r.status]||r.status));history.append(row)})}
-async function refreshMe(){const d=await api('/me');currentUser=d.user;$('pointBadge').textContent='⭐ '+currentUser.points}
-async function loadAdmin(){if(currentUser.role!=='admin'){$('adminLocked').hidden=false;return}$('adminContent').hidden=false;const [reports,redeems]=await Promise.all([api('/reports'),api('/redemptions')]);const rr=reports.reports,dd=redeems.redemptions;$('adminPending').textContent=rr.filter(r=>r.status==='pending').length;$('adminApproved').textContent=rr.filter(r=>r.status==='approved').length;$('adminResolved').textContent=rr.filter(r=>r.status==='resolved').length;$('adminRedemptions').textContent=dd.filter(r=>r.status==='requested').length;const list=$('adminReports');list.replaceChildren();if(!rr.length)empty(list,'Todavía no hay reportes.');rr.forEach(r=>list.append(reportCard(r,true)));const rewards=$('adminRewards');rewards.replaceChildren();if(!dd.length)empty(rewards,'Todavía no hay canjes.');dd.forEach(r=>{const row=element('article','report-item');row.append(element('h3','',r.reward),element('p','','👤 '+r.author+' · ⭐ '+r.cost+' puntos'),element('p','','📅 '+dateText(r.created)),element('span','badge '+r.status,statusText[r.status]||r.status));if(r.status==='requested'){const btn=element('button','primary','✓ Confirmar entrega');btn.style.marginTop='12px';btn.onclick=safe(async()=>{if(!confirm('¿Confirmas que el premio fue entregado?'))return;await api('/admin/deliver',{method:'POST',data:{id:r.id}});toast('Entrega confirmada');await loadAdmin()});row.append(element('br'),btn)}rewards.append(row)})}
-document.addEventListener('DOMContentLoaded',()=>{if(document.body.dataset.page==='login'){initLogin();return}if(document.body.dataset.page==='reportes')setupReports();if(document.body.dataset.page==='admin')$('adminRefresh').onclick=safe(loadAdmin);safe(initApp)()});
+const db = () => window.supabaseCliente;
+
+async function obtenerUsuario() {
+    if (!db()) return null;
+
+    const { data, error } = await db().auth.getUser();
+
+    if (error || !data.user) return null;
+
+    return data.user;
+}
+
+function mostrarMensaje(elemento, mensaje) {
+    const destino = document.getElementById(elemento);
+
+    if (destino) {
+        destino.textContent = mensaje;
+    }
+}
+
+// REGISTRO DE USUARIO
+const formularioRegistro = document.getElementById("form-registro");
+
+if (formularioRegistro) {
+    formularioRegistro.addEventListener("submit", async (evento) => {
+        evento.preventDefault();
+
+        if (!db()) {
+            mostrarMensaje("mensaje", "Primero configura Supabase.");
+            return;
+        }
+
+        const email = document.getElementById("correo-registro").value;
+        const password = document.getElementById("contrasena-registro").value;
+
+        const { error } = await db().auth.signUp({
+            email,
+            password
+        });
+
+        mostrarMensaje(
+            "mensaje",
+            error
+                ? error.message
+                : "Registro enviado. Si se solicita, confirma tu correo electrónico."
+        );
+    });
+}
+
+// INICIAR SESIÓN
+const formularioLogin = document.getElementById("form-login");
+
+if (formularioLogin) {
+    formularioLogin.addEventListener("submit", async (evento) => {
+        evento.preventDefault();
+
+        if (!db()) {
+            mostrarMensaje("mensaje", "Primero configura Supabase.");
+            return;
+        }
+
+        const email = document.getElementById("correo").value;
+        const password = document.getElementById("contrasena").value;
+
+        const { error } = await db().auth.signInWithPassword({
+            email,
+            password
+        });
+
+        if (error) {
+            mostrarMensaje("mensaje", "No se pudo iniciar sesión: " + error.message);
+            return;
+        }
+
+        window.location.href = "index.html";
+    });
+}
+
+// CERRAR SESIÓN
+const botonCerrarSesion = document.getElementById("cerrar-sesion");
+
+if (botonCerrarSesion) {
+    botonCerrarSesion.addEventListener("click", async () => {
+        if (!db()) return;
+
+        await db().auth.signOut();
+        window.location.href = "login.html";
+    });
+}
+
+// REGISTRAR REPORTE
+const formularioReporte = document.getElementById("form-reporte");
+
+if (formularioReporte) {
+    formularioReporte.addEventListener("submit", async (evento) => {
+        evento.preventDefault();
+
+        if (!db()) {
+            mostrarMensaje("mensaje-reporte", "Primero configura Supabase.");
+            return;
+        }
+
+        const usuario = await obtenerUsuario();
+
+        if (!usuario) {
+            mostrarMensaje(
+                "mensaje-reporte",
+                "Inicia sesión antes de registrar un reporte."
+            );
+            return;
+        }
+
+        const reporte = {
+            usuario_id: usuario.id,
+            sector: document.getElementById("sector").value,
+            tipo_residuo: document.getElementById("tipo-residuo").value,
+            urgencia: document.getElementById("urgencia").value,
+            descripcion: document.getElementById("descripcion").value,
+            estado: "pendiente"
+        };
+
+        const { error } = await db()
+            .from("reportes")
+            .insert(reporte);
+
+        if (error) {
+            mostrarMensaje(
+                "mensaje-reporte",
+                "No se pudo guardar el reporte. Revisa las tablas y permisos de Supabase."
+            );
+            console.error(error);
+            return;
+        }
+
+        mostrarMensaje("mensaje-reporte", "Reporte registrado correctamente.");
+        formularioReporte.reset();
+
+        if (typeof cargarReportes === "function") {
+            cargarReportes();
+        }
+    });
+}
+
+// MOSTRAR REPORTES
+async function cargarReportes() {
+    const contenedor = document.getElementById("lista-reportes");
+
+    if (!contenedor || !db()) return;
+
+    contenedor.textContent = "Cargando reportes...";
+
+    const filtro = document.getElementById("filtro-estado")?.value || "";
+
+    let consulta = db()
+        .from("reportes")
+        .select("id, sector, tipo_residuo, urgencia, descripcion, estado, creado_en")
+        .order("creado_en", { ascending: false });
+
+    if (filtro) {
+        consulta = consulta.eq("estado", filtro);
+    }
+
+    const { data, error } = await consulta;
+
+    if (error) {
+        contenedor.textContent = "No se pudieron cargar los reportes.";
+        console.error(error);
+        return;
+    }
+
+    contenedor.replaceChildren();
+
+    if (!data || data.length === 0) {
+        contenedor.textContent = "No hay reportes para mostrar.";
+        return;
+    }
+
+    data.forEach((reporte) => {
+        const tarjeta = document.createElement("article");
+        tarjeta.className = "reporte";
+
+        const titulo = document.createElement("h3");
+        titulo.textContent = reporte.sector;
+
+        const tipo = document.createElement("p");
+        tipo.textContent = "Residuo: " + reporte.tipo_residuo;
+
+        const urgencia = document.createElement("p");
+        urgencia.textContent = "Urgencia: " + reporte.urgencia;
+
+        const descripcion = document.createElement("p");
+        descripcion.textContent = reporte.descripcion;
+
+        const estado = document.createElement("p");
+        estado.textContent = "Estado: " + reporte.estado;
+
+        tarjeta.append(titulo, tipo, urgencia, descripcion, estado);
+        contenedor.appendChild(tarjeta);
+    });
+}
+
+// MAPA DE PRIORIDADES
+async function cargarMapa() {
+    const contenedor = document.getElementById("mapa-sectores");
+
+    if (!contenedor || !db()) return;
+
+    contenedor.textContent = "Cargando información...";
+
+    const sectores = [
+        "Entrada principal",
+        "Zona de frutas y verduras",
+        "Zona de carnes",
+        "Zona de comidas",
+        "Zona de residuos"
+    ];
+
+    const { data, error } = await db()
+        .from("reportes")
+        .select("sector, urgencia, estado")
+        .in("estado", ["pendiente", "aprobado"]);
+
+    if (error) {
+        contenedor.textContent = "No se pudo cargar el mapa.";
+        console.error(error);
+        return;
+    }
+
+    contenedor.replaceChildren();
+
+    sectores.forEach((nombreSector) => {
+        const reportesSector = (data || []).filter(
+            (reporte) => reporte.sector === nombreSector
+        );
+
+        const cantidad = reportesSector.length;
+        const urgentes = reportesSector.filter(
+            (reporte) => reporte.urgencia === "Alta"
+        ).length;
+
+        let nivel = "baja";
+        let textoNivel = "Prioridad baja";
+
+        if (cantidad >= 4 || urgentes >= 2) {
+            nivel = "alta";
+            textoNivel = "Prioridad alta";
+        } else if (cantidad >= 2 || urgentes === 1) {
+            nivel = "media";
+            textoNivel = "Prioridad media";
+        }
+
+        const tarjeta = document.createElement("article");
+        tarjeta.className = "sector " + nivel;
+
+        const titulo = document.createElement("h3");
+        titulo.textContent = nombreSector;
+
+        const total = document.createElement("p");
+        total.textContent = "Reportes activos: " + cantidad;
+
+        const prioridad = document.createElement("p");
+        prioridad.textContent = textoNivel;
+
+        tarjeta.append(titulo, total, prioridad);
+        contenedor.appendChild(tarjeta);
+    });
+}
+
+// CARGAR PUNTOS DEL USUARIO
+async function cargarPuntos() {
+    const elemento = document.getElementById("mis-puntos");
+
+    if (!elemento || !db()) return;
+
+    const usuario = await obtenerUsuario();
+
+    if (!usuario) {
+        elemento.textContent = "Inicia sesión";
+        return;
+    }
+
+    const { data, error } = await db()
+        .from("perfiles")
+        .select("puntos")
+        .eq("id", usuario.id)
+        .maybeSingle();
+
+    if (error) {
+        elemento.textContent = "No disponible";
+        console.error(error);
+        return;
+    }
+
+    elemento.textContent = data?.puntos ?? 0;
+}
+
+// MOSTRAR RECOMPENSAS
+async function cargarRecompensas() {
+    const contenedor = document.getElementById("lista-recompensas");
+
+    if (!contenedor || !db()) return;
+
+    const { data, error } = await db()
+        .from("recompensas")
+        .select("id, nombre, descripcion, costo_puntos, disponible")
+        .eq("disponible", true)
+        .order("costo_puntos", { ascending: true });
+
+    if (error) {
+        contenedor.textContent = "No se pudieron cargar las recompensas.";
+        console.error(error);
+        return;
+    }
+
+    contenedor.replaceChildren();
+
+    if (!data || data.length === 0) {
+        contenedor.textContent = "Todavía no hay recompensas disponibles.";
+        return;
+    }
+
+    data.forEach((recompensa) => {
+        const tarjeta = document.createElement("article");
+        tarjeta.className = "tarjeta";
+
+        const titulo = document.createElement("h3");
+        titulo.textContent = recompensa.nombre;
+
+        const descripcion = document.createElement("p");
+        descripcion.textContent = recompensa.descripcion || "";
+
+        const costo = document.createElement("p");
+        costo.textContent = "Costo: " + recompensa.costo_puntos + " puntos";
+
+        const boton = document.createElement("button");
+        boton.textContent = "Solicitar canje";
+
+        boton.addEventListener("click", () => solicitarCanje(recompensa.id));
+
+        tarjeta.append(titulo, descripcion, costo, boton);
+        contenedor.appendChild(tarjeta);
+    });
+}
+
+// SOLICITAR CANJE
+async function solicitarCanje(recompensaId) {
+    if (!db()) return;
+
+    const usuario = await obtenerUsuario();
+
+    if (!usuario) {
+        alert("Inicia sesión antes de solicitar una recompensa.");
+        return;
+    }
+
+    alert(
+        "La solicitud de canje requiere configurar una función segura en Supabase. " +
+        "No se descontarán puntos hasta implementar esa función."
+    );
+}
+
+// PANEL ADMINISTRADOR
+async function comprobarAdministrador() {
+    const elemento = document.getElementById("estado-admin");
+
+    if (!elemento || !db()) return;
+
+    const usuario = await obtenerUsuario();
+
+    if (!usuario) {
+        elemento.textContent = "Debes iniciar sesión.";
+        return;
+    }
+
+    const { data, error } = await db()
+        .from("perfiles")
+        .select("rol")
+        .eq("id", usuario.id)
+        .maybeSingle();
+
+    if (error || !data || data.rol !== "administrador") {
+        elemento.textContent = "Tu cuenta no tiene permisos de administrador.";
+        return;
+    }
+
+    elemento.textContent = "Sesión de administrador verificada.";
+    cargarReportesAdmin();
+}
+
+// MOSTRAR REPORTES EN ADMINISTRACIÓN
+async function cargarReportesAdmin() {
+    const contenedor = document.getElementById("reportes-admin");
+
+    if (!contenedor || !db()) return;
+
+    contenedor.textContent = "Cargando reportes...";
+
+    const usuario = await obtenerUsuario();
+
+    if (!usuario) {
+        contenedor.textContent = "Inicia sesión para continuar.";
+        return;
+    }
+
+    const { data: perfil, error: errorPerfil } = await db()
+        .from("perfiles")
+        .select("rol")
+        .eq("id", usuario.id)
+        .maybeSingle();
+
+    if (errorPerfil || perfil?.rol !== "administrador") {
+        contenedor.textContent = "Acceso no autorizado.";
+        return;
+    }
+
+    const filtro = document.getElementById("filtro-admin")?.value || "";
+
+    let consulta = db()
+        .from("reportes")
+        .select("id, sector, tipo_residuo, urgencia, descripcion, estado")
+        .order("creado_en", { ascending: false });
+
+    if (filtro) {
+        consulta = consulta.eq("estado", filtro);
+    }
+
+    const { data, error } = await consulta;
+
+    if (error) {
+        contenedor.textContent = "No se pudieron cargar los reportes.";
+        console.error(error);
+        return;
+    }
+
+    contenedor.replaceChildren();
+
+    if (!data || data.length === 0) {
+        contenedor.textContent = "No hay reportes para mostrar.";
+        return;
+    }
+
+    data.forEach((reporte) => {
+        const tarjeta = document.createElement("article");
+        tarjeta.className = "reporte";
+
+        const titulo = document.createElement("h3");
+        titulo.textContent = reporte.sector;
+
+        const detalle = document.createElement("p");
+        detalle.textContent =
+            reporte.tipo_residuo + " | Urgencia: " + reporte.urgencia;
+
+        const descripcion = document.createElement("p");
+        descripcion.textContent = reporte.descripcion;
+
+        const estado = document.createElement("p");
+        estado.textContent = "Estado actual: " + reporte.estado;
+
+        tarjeta.append(titulo, detalle, descripcion, estado);
+
+        ["aprobado", "resuelto", "rechazado"].forEach((nuevoEstado) => {
+            const boton = document.createElement("button");
+            boton.textContent = nuevoEstado.charAt(0).toUpperCase() +
+                nuevoEstado.slice(1);
+
+            boton.addEventListener("click", () => {
+                actualizarEstadoReporte(reporte.id, nuevoEstado);
+            });
+
+            tarjeta.appendChild(boton);
+        });
+
+        contenedor.appendChild(tarjeta);
+    });
+}
+
+// ACTUALIZAR ESTADO DE REPORTE
+async function actualizarEstadoReporte(id, estado) {
+    if (!db()) return;
+
+    const usuario = await obtenerUsuario();
+
+    if (!usuario) {
+        alert("Debes iniciar sesión.");
+        return;
+    }
+
+    const { data: perfil, error: errorPerfil } = await db()
+        .from("perfiles")
+        .select("rol")
+        .eq("id", usuario.id)
+        .maybeSingle();
+
+    if (errorPerfil || perfil?.rol !== "administrador") {
+        alert("No tienes permisos de administrador.");
+        return;
+    }
+
+    const { error } = await db()
+        .from("reportes")
+        .update({ estado })
+        .eq("id", id);
+
+    if (error) {
+        alert("No se pudo actualizar. Revisa las políticas de Supabase.");
+        console.error(error);
+        return;
+    }
+
+    cargarReportesAdmin();
+    cargarReportes();
+    cargarMapa();
+}
+
+// INICIALIZAR LAS FUNCIONES DE CADA PÁGINA
+document.addEventListener("DOMContentLoaded", () => {
+    if (!db()) {
+        console.warn("Supabase no está configurado.");
+        return;
+    }
+
+    cargarReportes();
+    cargarMapa();
+    cargarPuntos();
+    cargarRecompensas();
+    comprobarAdministrador();
+});
