@@ -10,30 +10,64 @@
 <body data-page="inicio">
 
     <!-- BARRA DE NAVEGACIÓN -->
-    <header class="topbar">
-        <a class="brand" href="index.html">
-            <span class="brand-icon">🌿</span>
-            <span>
-                <b>EcoRuta</b>
-                <small>Vinocanchón</small>
-            </span>
+    
+<!-- BARRA DE NAVEGACIÓN -->
+<header class="topbar">
+
+    <!-- LOGOTIPO -->
+    <a class="brand" href="index.html">
+        <span class="brand-icon">🌿</span>
+
+        <span>
+            <b>EcoRuta</b>
+            <small>Vinocanchón</small>
+        </span>
+    </a>
+
+    <!-- BOTÓN PARA CELULARES -->
+    <button
+        class="menu-toggle"
+        id="menu-toggle"
+        type="button"
+        aria-label="Abrir menú"
+        aria-controls="nav"
+        aria-expanded="false">
+        ☰
+    </button>
+
+    <!-- ENLACES DEL MENÚ -->
+    <nav class="nav" id="nav" aria-label="Navegación principal">
+
+        <a href="index.html"
+           class="active"
+           aria-current="page">
+            Inicio
         </a>
 
-        <button class="menu-toggle" id="menu-toggle" aria-label="Abrir menú">
-            ☰
-        </button>
+        <a href="mapa.html">
+            Mapa de prioridades
+        </a>
 
-        
-        <nav>
-            <a href="index.html">Inicio</a>
-            <a href="mapa.html">Mapa de prioridades</a>
-            <a href="reportes.html">Reportes</a>
-            <a href="recompensas.html">Recompensas</a>
-            <a href="admin.html">Administración</a>
-            <a href="login.html">Iniciar sesión</a>
-        </nav>
+        <a href="reportes.html">
+            Reportes
+        </a>
 
-    </header>
+        <a href="recompensas.html">
+            Recompensas
+        </a>
+
+        <a href="admin.html">
+            Administración
+        </a>
+
+        <a href="login.html" class="nav-login">
+            Iniciar sesión
+        </a>
+
+    </nav>
+
+</header>
+
 
     <main>
 
