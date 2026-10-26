@@ -1,1 +1,55 @@
-<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#075c46"><title>Administración | EcoRuta Vinocanchón</title><link rel="stylesheet" href="estilos.css"></head><body data-page="admin"><div class="layout"><aside class="sidebar" id="sidebar"><a class="brand" href="index.html"><span class="brand-icon">🌿</span><span><strong>EcoRuta</strong><small>VINOCANCHÓN</small></span></a><div class="nav-label">TU MERCADO · TU COMUNIDAD</div><nav><a href="index.html" class="nav-link ">🏠 <span>Inicio</span></a><a href="mapa.html" class="nav-link ">🗺️ <span>Mapa de calor</span></a><a href="reportes.html" class="nav-link ">🚮 <span>Reportes</span></a><a href="recompensas.html" class="nav-link ">🏆 <span>EcoPuntos</span></a><a href="admin.html" class="nav-link selected">🛠️ <span>Administración</span></a></nav><div class="side-note">💚 <strong>Tu reporte cuenta</strong><p>Una comunidad más limpia empieza contigo.</p></div></aside><div class="workspace"><header class="topbar"><button class="hamburger" id="menuBtn" aria-label="Abrir menú">☰</button><div><small>📍 Cusco, Perú · Plataforma comunitaria</small><h2>Administración</h2></div><div class="account"><span id="userName">Visitante</span><span id="pointBadge" class="pill">⭐ 0</span><button class="ghost small" id="logoutBtn">Salir</button></div></header><main><div class="page-head"><span class="kicker">GESTIÓN RESPONSABLE</span><h1>🛠️ Panel del administrador</h1><p>Solo las cuentas creadas con permisos de administración pueden validar reportes y confirmar entregas.</p></div><div id="adminLocked" class="card locked" hidden><span>🔒</span><h2>Acceso restringido</h2><p>Esta sección es exclusiva de los administradores autorizados.</p><a class="primary button" href="index.html">Volver al inicio</a></div><div id="adminContent" hidden><div class="stat-grid"><div class="stat"><span class="stat-icon orange">⏳</span><p>Por revisar</p><strong id="adminPending">0</strong></div><div class="stat"><span class="stat-icon blue">🧾</span><p>Aprobados</p><strong id="adminApproved">0</strong></div><div class="stat"><span class="stat-icon green">✅</span><p>Resueltos</p><strong id="adminResolved">0</strong></div><div class="stat"><span class="stat-icon purple">🎁</span><p>Canjes pendientes</p><strong id="adminRedemptions">0</strong></div></div><div class="section-head"><div><span class="kicker">MODERACIÓN</span><h2>📋 Validación de reportes</h2><p>Aprueba, rechaza o marca como resuelto cada reporte.</p></div><button class="ghost" id="adminRefresh">↻ Actualizar</button></div><section class="card"><div id="adminReports" class="report-list"></div></section><div class="section-head"><div><span class="kicker">RECOMPENSAS</span><h2>🎁 Solicitudes de canje</h2><p>Confirma la entrega de los premios solicitados.</p></div></div><section class="card"><div id="adminRewards" class="report-list"></div></section></div></main><footer>🌱 EcoRuta Vinocanchón · Plataforma comunitaria de demostración · Datos compartidos por el servidor</footer></div></div><div id="toast" role="status" class="toast"></div><script src="codigo.js" defer></script></body></html>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoRuta | Administración</title>
+    <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+    <header>
+        <h1>⚙️ Panel de administración</h1>
+        <p>Revisión y gestión de reportes del mercado.</p>
+    </header>
+
+    <nav>
+        <a href="index.html">Inicio</a>
+        <a href="mapa.html">Mapa de prioridades</a>
+        <a href="reportes.html">Reportes</a>
+        <a href="recompensas.html">Recompensas</a>
+        <a href="admin.html">Administración</a>
+    </nav>
+
+    <main class="contenedor">
+        <section class="panel">
+            <h2>Verificación de acceso</h2>
+            <p id="estado-admin">Comprobando permisos...</p>
+        </section>
+
+        <section class="panel">
+            <h2>Gestión de reportes</h2>
+
+            <label for="filtro-admin">Estado del reporte</label>
+            <select id="filtro-admin" onchange="cargarReportesAdmin()">
+                <option value="">Todos</option>
+                <option value="pendiente">Pendientes</option>
+                <option value="aprobado">Aprobados</option>
+                <option value="resuelto">Resueltos</option>
+                <option value="rechazado">Rechazados</option>
+            </select>
+
+            <div id="reportes-admin">
+                <p>Cargando reportes...</p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>EcoRuta Vinocanchón © 2026</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="configuracion.js"></script>
+    <script src="codigo.js"></script>
+</body>
+</html>
