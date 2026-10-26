@@ -6,70 +6,211 @@
     <title>EcoRuta Vinocanchón | Inicio</title>
     <link rel="stylesheet" href="estilos.css">
 </head>
-<body>
-    <header>
-        <h1>🌱 EcoRuta Vinocanchón</h1>
-        <p>Gestión inteligente de residuos del mercado</p>
+
+<body data-page="inicio">
+
+    <!-- BARRA DE NAVEGACIÓN -->
+    <header class="topbar">
+        <a class="brand" href="index.html">
+            <span class="brand-icon">🌿</span>
+            <span>
+                <b>EcoRuta</b>
+                <small>Vinocanchón</small>
+            </span>
+        </a>
+
+        <button class="menu-toggle" id="menu-toggle" aria-label="Abrir menú">
+            ☰
+        </button>
+
+        <nav class="nav" id="nav">
+            <a class="active" href="index.html">Inicio</a>
+            <a href="mapa.html">Mapa</a>
+            <a href="reportes.html">Reportes</a>
+            <a href="recompensas.html">Recompensas</a>
+            <a class="nav-login" href="login.html">Iniciar sesión</a>
+        </nav>
     </header>
 
-    <nav>
-        <a href="index.html">Inicio</a>
-        <a href="mapa.html">Mapa de prioridades</a>
-        <a href="reportes.html">Reportes</a>
-        <a href="recompensas.html">Recompensas</a>
-        <a href="admin.html">Administración</a>
-        <button id="cerrar-sesion">Cerrar sesión</button>
-    </nav>
+    <main>
 
-    <main class="contenedor">
-        <section class="bienvenida">
-            <h2>¡Bienvenido a EcoRuta!</h2>
-            <p>
-                Ayúdanos a mantener limpio el mercado Vinocanchón.
-                Registra los residuos acumulados, consulta los reportes
-                y participa en el cuidado del medioambiente.
-            </p>
-            <a class="boton-enlace" href="reportes.html">Registrar un reporte</a>
+        <!-- PORTADA PRINCIPAL -->
+        <section class="hero">
+            <div class="hero-shade"></div>
+
+            <div class="hero-content">
+                <span class="eyebrow">
+                    🌎 JUNTOS POR UN MERCADO SOSTENIBLE
+                </span>
+
+                <h1>
+                    Un mercado limpio<br>
+                    también es un mercado<br>
+                    <span>más fuerte.</span>
+                </h1>
+
+                <p>
+                    Reporta residuos, identifica sectores prioritarios
+                    y participa en el cuidado de nuestro mercado Vinocanchón.
+                </p>
+
+                <div class="hero-actions">
+                    <a href="reportes.html" class="btn btn-primary">
+                        ♻ Reportar residuos
+                    </a>
+
+                    <a href="mapa.html" class="btn btn-light">
+                        📍 Ver mapa
+                    </a>
+                </div>
+            </div>
+
+            <div class="hero-note">
+                Pequeñas acciones,<br>
+                <strong>grandes cambios.</strong> 🌱
+            </div>
         </section>
 
-        <section class="tarjetas">
-            <article class="tarjeta">
-                <h3>📍 Mapa de prioridades</h3>
-                <p>Consulta qué sectores necesitan mayor atención.</p>
-                <a href="mapa.html">Ver mapa</a>
+        <!-- ESTADÍSTICAS -->
+        <section class="stats-grid">
+
+            <article class="stat-card">
+                <span class="stat-icon green">📋</span>
+                <div>
+                    <p>Reportes registrados</p>
+                    <strong id="stat-reportes">—</strong>
+                    <small>Colabora con tu comunidad</small>
+                </div>
             </article>
 
-            <article class="tarjeta">
-                <h3>🗑️ Reportar residuos</h3>
-                <p>Informa sobre residuos acumulados en el mercado.</p>
-                <a href="reportes.html">Crear reporte</a>
+            <article class="stat-card">
+                <span class="stat-icon orange">📍</span>
+                <div>
+                    <p>Sectores monitoreados</p>
+                    <strong>5</strong>
+                    <small>En todo el mercado</small>
+                </div>
             </article>
 
-            <article class="tarjeta">
-                <h3>⭐ EcoPuntos</h3>
-                <p>Consulta los puntos y las recompensas disponibles.</p>
-                <a href="recompensas.html">Ver recompensas</a>
+            <article class="stat-card">
+                <span class="stat-icon blue">✓</span>
+                <div>
+                    <p>Reportes resueltos</p>
+                    <strong id="stat-resueltos">—</strong>
+                    <small>Avanzamos juntos</small>
+                </div>
             </article>
+
+            <article class="stat-card">
+                <span class="stat-icon yellow">★</span>
+                <div>
+                    <p>EcoPuntos disponibles</p>
+                    <strong id="stat-puntos">—</strong>
+                    <small>Participa y suma puntos</small>
+                </div>
+            </article>
+
         </section>
 
-        <section class="panel">
-            <h2>¿Cómo funciona?</h2>
-            <ol>
-                <li>Regístrate e inicia sesión.</li>
-                <li>Identifica el sector donde hay residuos.</li>
-                <li>Registra el tipo y la urgencia del problema.</li>
-                <li>El personal responsable revisará el reporte.</li>
-                <li>Participa en las actividades de limpieza.</li>
-            </ol>
+        <!-- CÓMO FUNCIONA -->
+        <section class="section container">
+
+            <div class="section-heading">
+                <div>
+                    <span class="eyebrow green-text">CÓMO FUNCIONA</span>
+
+                    <h2>Un cambio sencillo empieza contigo</h2>
+
+                    <p>
+                        Tres pasos para ayudar a mantener limpio Vinocanchón.
+                    </p>
+                </div>
+            </div>
+
+            <div class="feature-grid">
+
+                <article class="feature-card">
+                    <div class="feature-icon">📍</div>
+                    <span class="step">PASO 01</span>
+                    <h3>Identifica</h3>
+                    <p>
+                        Observa un sector con residuos acumulados
+                        o que necesite atención.
+                    </p>
+                </article>
+
+                <article class="feature-card">
+                    <div class="feature-icon">📝</div>
+                    <span class="step">PASO 02</span>
+                    <h3>Reporta</h3>
+                    <p>
+                        Indica el sector, el tipo de residuo
+                        y qué tan urgente es atenderlo.
+                    </p>
+                </article>
+
+                <article class="feature-card">
+                    <div class="feature-icon">🌱</div>
+                    <span class="step">PASO 03</span>
+                    <h3>Participa</h3>
+                    <p>
+                        Consulta el estado del reporte y apoya
+                        las acciones de limpieza.
+                    </p>
+                </article>
+
+            </div>
         </section>
+
+        <!-- MENSAJE DE IMPACTO -->
+        <section class="impact-banner container">
+
+            <div>
+                <span class="eyebrow">NUESTRO COMPROMISO</span>
+
+                <h2>
+                    Unidos por un Vinocanchón más limpio y sostenible.
+                </h2>
+
+                <p>
+                    La información de la comunidad ayuda a organizar
+                    mejor las labores de limpieza.
+                </p>
+            </div>
+
+            <a href="reportes.html" class="btn btn-primary">
+                Quiero participar →
+            </a>
+
+        </section>
+
     </main>
 
-    <footer>
-        <p>EcoRuta Vinocanchón © 2026 | Por un mercado más limpio y sostenible.</p>
+    <!-- PIE DE PÁGINA -->
+    <footer class="footer">
+
+        <a class="brand footer-brand" href="index.html">
+            <span class="brand-icon">🌿</span>
+            <span>
+                <b>EcoRuta</b>
+                <small>Vinocanchón</small>
+            </span>
+        </a>
+
+        <p>Pequeñas acciones, grandes cambios.</p>
+
+        <small>
+            © 2026 EcoRuta Vinocanchón ·
+            Proyecto de sostenibilidad comunitaria
+        </small>
+
     </footer>
 
+    <!-- SCRIPTS -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="configuracion.js"></script>
     <script src="codigo.js"></script>
+
 </body>
 </html>
+    
