@@ -1,8 +1,8 @@
 // Reemplaza estos valores con los de tu proyecto Supabase.
 // Utiliza la clave publicable (publishable key), nunca la service_role.
 
-const SUPABASE_URL = "PEGA_AQUI_TU_PROJECT_URL";
-const SUPABASE_PUBLISHABLE_KEY = "PEGA_AQUI_TU_PUBLISHABLE_KEY";
+const SUPABASE_URL = "https://lltmqglylffjjtpfgwdz.supabase.co";
+const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_e4f5RulYH-ict09gqap6NQ_2ABIYWED";
 
 if (
     !SUPABASE_URL.startsWith("https://") ||
