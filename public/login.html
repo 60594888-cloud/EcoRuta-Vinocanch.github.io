@@ -1,1 +1,47 @@
-<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#075c46"><title>Acceso a EcoRuta | EcoRuta Vinocanchón</title><link rel="stylesheet" href="estilos.css"></head><body data-page="login"><div class="auth-page"><div class="auth-art"><a href="login.html" class="brand light"><span class="brand-icon">🌿</span><span><strong>EcoRuta</strong><small>VINOCANCHÓN</small></span></a><div class="auth-hero"><div class="auth-orbit">🌎<span>♻️</span></div><div class="eyebrow light">JUNTOS HACEMOS LA DIFERENCIA</div><h1>Tu mercado más limpio comienza aquí.</h1><p>Reporta puntos críticos, sigue las soluciones y participa en una comunidad que cuida Vinocanchón.</p><div class="auth-chips"><span>🗺️ Mapa vivo</span><span>🚮 Reportes</span><span>🏆 EcoPuntos</span></div></div><p class="auth-foot">Proyecto de innovación · Cusco, Perú</p></div><div class="auth-form-area"><div class="auth-card"><div class="mini-logo">🌱 Bienvenido a EcoRuta</div><h2 id="authTitle">Iniciar sesión</h2><p class="muted">Ingresa para acceder a los reportes compartidos del mercado.</p><div class="tabs"><button class="tab active" id="tabLogin" type="button">Ingresar</button><button class="tab" id="tabRegister" type="button">Crear cuenta</button></div><form id="authForm"><label id="nameField" hidden>Nombre o alias<input name="name" autocomplete="nickname" maxlength="70" placeholder="¿Cómo quieres aparecer?"></label><label>Correo electrónico<input type="email" name="email" autocomplete="email" required placeholder="correo@ejemplo.com"></label><label>Contraseña<input type="password" name="password" autocomplete="current-password" required minlength="8" placeholder="Mínimo 8 caracteres"></label><button class="primary full" type="submit" id="authSubmit">Entrar a EcoRuta →</button></form><div class="callout subtle">🔒 Tu contraseña se guarda protegida en el servidor. No compartas datos personales en los reportes.</div></div></div></div><div id="toast" role="status" class="toast"></div><script src="codigo.js" defer></script></body></html>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoRuta Vinocanchón | Iniciar sesión</title>
+    <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+    <main class="contenedor-login">
+        <section class="tarjeta-login">
+            <h1>🌱 EcoRuta Vinocanchón</h1>
+            <p>Un mercado más limpio comienza contigo.</p>
+
+            <form id="form-login">
+                <label for="correo">Correo electrónico</label>
+                <input type="email" id="correo" required placeholder="ejemplo@correo.com">
+
+                <label for="contrasena">Contraseña</label>
+                <input type="password" id="contrasena" required placeholder="Tu contraseña">
+
+                <button type="submit">Iniciar sesión</button>
+            </form>
+
+            <hr>
+
+            <form id="form-registro">
+                <h2>Crear cuenta</h2>
+
+                <label for="correo-registro">Correo electrónico</label>
+                <input type="email" id="correo-registro" required>
+
+                <label for="contrasena-registro">Contraseña</label>
+                <input type="password" id="contrasena-registro" minlength="6" required>
+
+                <button type="submit" class="boton-secundario">Registrarme</button>
+            </form>
+
+            <p id="mensaje"></p>
+        </section>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="configuracion.js"></script>
+    <script src="codigo.js"></script>
+</body>
+</html>
